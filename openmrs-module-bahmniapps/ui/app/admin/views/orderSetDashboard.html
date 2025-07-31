@@ -1,38 +1,18 @@
-<style>
-    .button, button, input[type="submit"], .input-prepend [type="submit"].add-on, input[type="button"], .input-prepend [type="button"].add-on, input[type="reset"], .input-prepend [type="reset"].add-on, input[type="submit"], .input-prepend [type="submit"].add-on, a.button {
-    border-radius: 0px;
-    background: none;
-    background-color: none;
-    border: none;
-    padding: 6px 20px 7px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: #363463;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-}
- 
-</style>
- 
-<section class="block section-grid orderSet-dashboard-container" style="border: 1px solid #0000001C;border-radius: 8px;overflow: hidden;">
-    <div class="clearfix section-title-wrapper" style="background: #1A57E826">
-        <h2 class="section-title fl" style="background: none !important;border: none !important; color: black;" >Order Set</h2>
-        <button class="fr small-btn grid-row-element orderSet-Create" ng-click="createOrEditOrderSet()" style="border: 1.5px solid #1A57E8;border-radius: 34px;margin-top: 20px;margin-right: 20px;color: #265FE6;background: none;"> Create New</button>
- 
+<section class="block section-grid orderSet-dashboard-container">
+    <div class="clearfix section-title-wrapper">
+        <h2 class="section-title fl">Order Set</h2>
+        <button class="fr small-btn grid-row-element orderSet-Create" ng-click="createOrEditOrderSet()"> Create New</button>
+
     </div>
- 
+
     <table class="">
         <tr>
             <th><strong>Name</strong></th>
             <th><strong>Action</strong></th>
         </tr>
-        <tr ng-repeat="orderSet in orderSets" style="text-align: center; background: #FFFFFF;">
+        <tr ng-repeat="orderSet in orderSets">
            <td><a ng-click="createOrEditOrderSet(orderSet.uuid);">{{orderSet.name}}</a></td>
-           <td> <img src="/bahmni/images/Crossicon.png" alt="Remove" ng-click="removeOrderSet(orderSet)"
-                style="cursor: pointer; height: 24px; width: 24px;">
-            </td>
+           <td><input type="button" ng-click="removeOrderSet(orderSet)" value="X"></td>
         </tr>
     </table>
 </section>

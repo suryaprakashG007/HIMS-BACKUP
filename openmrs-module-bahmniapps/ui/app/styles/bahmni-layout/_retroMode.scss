@@ -81,9 +81,9 @@ $retroModeColor:  #0E74AF;
         max-width: 100%;
         padding: 10px 12px 10px;
         float: left;
-        color: black;
-        background:rgba(241, 245, 249, 1);
-        border-radius: 26px;
+        color: $white;
+        border: 1px solid darken($bahmniSecondaryColor, 15%);
+        background: linear-gradient(to bottom, $bahmniSecondaryColor, darken($bahmniSecondaryColor, 10%));
         font-size: 16px;
       }
       a{

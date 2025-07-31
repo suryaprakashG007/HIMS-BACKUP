@@ -1,5 +1,3 @@
-
-
 <div ng-class="{'template-container':hideTitle}">
     <div class="conditions-display-contorl-overflow">
         <div class="block hierarchy dashboard-section">
@@ -7,7 +5,7 @@
                 class="section-title"
                 ng-class="{'has-link':!hideTitle}">
                 <span class="title-link"> {{'CONDITION_LIST_DISPLAY_CONTROL_TITLE' | translate}} </span>
-                <img src="../images/Roundright.png" alt="Open in new window" class="external-link-img"  />
+                <i class="fa fa-external-link" ng-if="!hideTitle"></i>
             </h2>
             <div ng-if="conditions.length == 0">
                 <p class="placeholder-text">{{'CONDITION_LIST_NO_CONDITIONS' | translate}}</p>

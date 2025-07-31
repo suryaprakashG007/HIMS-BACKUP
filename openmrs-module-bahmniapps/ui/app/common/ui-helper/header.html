@@ -7,18 +7,18 @@
                      show-if-privilege="{{retrospectivePrivilege}},{{onBehalfOfPrivilege}},{{locationPickerPrivilege}}"
                      ng-if="getTitle()">
                     <div class="retro-date-widget-header fr">
-                        <button ng-click="popUpHandler()" style="border-radius: 26px;">{{ getTitle() | translate }}</button>
+                        <button ng-click="popUpHandler()">{{ getTitle() | translate }}</button>
                     </div>
-                     <button class="btn-user-info fr" style="margin-left: 20px;margin-top: 13px; height: 35px;width:65px; align-items: center; justify-items: center; display: flex; padding: 0; gap: 5px; background: #FFFFFF1C; border-radius: 20px;">
-                    <img src="/bahmni/images/Doctor.png" alt="doctor" style="width: 35px; height: 35px; margin-left: 0px;">
-                    <i class="fa fa-caret-down fa-white mini"></i>
-                     </button>
+                    <button class="btn-user-info">
+                        <i class="fa fa-user-md fa-white small"></i>
+                        <i class="fa fa-caret-down fa-white mini"></i>
+                    </button>
                     <ul>
                         <li>
-                            <a log-out="" style="background: #FFFFFF;border:1px solid #00000026;color: #000000;display: flex;gap: 10px;align-items: center;">
-                        <img src="/bahmni/images/Logouticon.png" alt="logout" style="width: 17px;height: 17px;">
-                        <span class="nav-link ng-binding" style="font-weight: bold;">LOGOUT</span>
-                    </a>
+                            <a log-out>
+                                <i class="fa fa-power-off fa-white small"></i>
+                                <span class="nav-link">{{::'LOGOUT_TRANSLATION_KEY' | translate}}</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -27,4 +27,3 @@
         </header>
     </div>
 </div>
-

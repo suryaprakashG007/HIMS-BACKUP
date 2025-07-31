@@ -1,166 +1,16 @@
-<style>
-
-.patient-search-wrapper {
-    margin-top: 5%;
-}
-
-.tabs{
-    margin-left: 1% !important;
-}
-
-.tabs ul {
-    display: flex;
-    gap: 20px;
-    padding-left: 0;
-    list-style: none;
-   
-}
-
-.tab-1 {
-    display: block;
-    background-color: white !important;
-    border-radius: 10px 10px 0 0;
-    padding:  30px 40px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    list-style: none;
-    text-decoration: none;
-}
-
-.tab-selected {
-    background-color: #0D2D7B !important ;
-    color: white !important;
-}
-
-
-
-.tab-1 a span{
-    color: black ;
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.tab-selected a span{
-    color: white !important;
-}
-
-
-.tab-content{
-    width: 95%;
-    padding: 2px 10px;
-    margin-left: 1%;
-}
-
-.active-visits{
-    color: white;
-}
-
-.active-visits ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  margin: 2% 10px 3% 10px;
-  padding: 0;
-}
-
-.active-visits ul li {
-  background-color: white;
-  border: 1px solid rgb(209, 202, 202);
-  list-style: none;
-  border-radius: 10px;
-  height: auto;
-  width: calc(50% - 12.5px); 
-  box-sizing: border-box;
-
-}
-
-
-@media (min-width: 768px) and (max-width: 1024px) {
-
-    .tab-content{
-        width: 90%;
-    }
-  .active-visits ul li {
-    width: calc(33.33% - 16.66px);
-  }
-}
-
-
-@media (min-width: 1025px) {
-
-
-    .tab-content{
-        width: 100%;
-    }
-  .active-visits ul li {
-    width: calc(20% - 20px); 
-  }
-}
-
-.smallImages{
-    margin-top: 5%;
-    margin-bottom: 6%;
-    border:1px;
-    width: 100px;
-    height: 90px;
-    border-radius: 50%;
-}
-
-.profile{
-    margin-top: 1%;
-}
-
-.patient-name{
-    color: #000;
-    margin-top: 2%;
-    
-    
-}
-
-.patient-id{
-    margin-top: 3%;
-    margin-bottom: 2%;
-    
-}
-
-.search-wrapper{
-    margin-top: 1% !important;
-}
-
-.search-wrapper input{
-    border-radius: 10px;
-    padding: 5px 10px;
-    font-size: 11px;
-}
-
-.search-wrapper button{
-    padding: 6px ;
-    border: 1px solid #D9DBDE;
-    border-radius: 5px;
-    background-color: #EBEDF0;
-}
-
-.search-wrapper button i{
-    font-size: 12px;
-}
-
-
-</style>
-
-
 <div class="patient-search-wrapper">
     <div class="tabs">
         <scrollable-tabs>
             <ul>
-                    <li class="tab-1" ng-repeat="searchType in search.searchTypes" ng-class="{'tab-selected': search.isSelectedSearch(searchType)}">
-            <a href="" ng-click="search.switchSearchType(searchType)">
-                <span>{{ $first ? 'Active Patients' : 'All' }}</span>
-                <span ng-if="search.showPatientCountOnSearchParameter(searchType)">({{search.searchResults.length}})</span>
-                <span ng-if="(searchType.handler && !search.showPatientCountOnSearchParameter(searchType))" scheduler watch-on="search.searchParameter"
-                    refresh-time="searchType.refreshTime">({{searchType.patientCount}})
-                </span>
-            </a>
-            </li>
+                <li class="tab-item" ng-repeat="searchType in search.searchTypes"
+                    ng-class="{'tab-selected': search.isSelectedSearch(searchType)}">
+                    <a href="" ng-click="search.switchSearchType(searchType)">
+                        <span>{{::searchType | titleTranslate}} </span>
+                        <span ng-if="search.showPatientCountOnSearchParameter(searchType)">({{search.searchResults.length}})</span>
+                        <span ng-if="(searchType.handler && !search.showPatientCountOnSearchParameter(searchType))" scheduler
+                            watch-on="search.searchParameter" refresh-time="searchType.refreshTime">({{searchType.patientCount}})</span>
+                    </a>
+                </li>
             </ul>
         </scrollable-tabs>
         <button ng-if="search.searchType.showPrint" class="dialog-button-group" ng-click="printPage()"
@@ -168,39 +18,31 @@
             <i class="fa fa-print"></i>
         </button>
     </div>
-    
     <div class="tab-content" ng-if="::search.searchTypes.length">
         <div class="patient-list-spinner"></div>
         <span ng-if="search.isCurrentSearchLookUp() && !search.isCustomView()">
-            <form name="filterPatients" ng-submit="filterPatientsAndSubmit($event)">
+            <form name="filterPatients" ng-submit="filterPatientsAndSubmit()">
                 <div class="search-wrapper">
-                     <input type="text" id="patientIdentifier" ng-model="::search.searchParameter"
+                    <input type="text" id="patientIdentifier" ng-model="::search.searchParameter"
                            focus-on="search.startPatientSearch"
-                           ng-change="search.filterPatients()" placeholder="{{'Search By Patient ID or Name' | translate: {primaryIdentifier : primaryIdentifier} }}"/>
-                        <button type="submit" ng-disabled="!search.searchParameter">
-                        <i class="fa fa-search"></i>
-                        
-                    </button>
+                           ng-change="search.filterPatients()"/>
                 </div>
-            
             </form>
         </span>
-           <span ng-if="search.searchType && !search.isCurrentSearchLookUp() && !search.isCustomView()">
+        <span ng-if="search.searchType && !search.isCurrentSearchLookUp() && !search.isCustomView()">
             <form name="searchPatientForm" ng-submit="searchPatients()" class="overflow-hidden">
-                <div class="search-patient-id left search-wrapper">
+                <div class="search-patient-id left">
                     <input type="text" id="patientIdentifier" ng-model="::search.searchParameter"
-                           focus-on="search.startPatientSearch" placeholder="{{'Search By Patient ID or Name' | translate: {primaryIdentifier : primaryIdentifier} }}"/>
-                <!-- </div> -->
-                <!-- <div class="reg-srch-btn left"> -->
+                           focus-on="search.startPatientSearch" placeholder="{{'SEARCH_NAME_PLACEHOLDER_KEY' | translate: {primaryIdentifier : primaryIdentifier} }}"/>
+                </div>
+                <div class="reg-srch-btn left">
                     <button type="submit" ng-disabled="!search.searchParameter">
                         <i class="fa fa-search"></i>
-                        
+                        {{'SEARCH_KEY' | translate }}
                     </button>
                 </div>
             </form>
         </span>
-
-
         <resize ng-if="search.isTabularView()" search-results="search.searchResults"
                 visible-results="search.visiblePatients" class="active-visits">
             <div class="ward-details-container">
@@ -248,11 +90,9 @@
             <ul>
                 <li ng-repeat="patient in search.visiblePatients" class="active-patient" ng-click="forwardPatient(patient)">
                     <img class="smallImages" ng-src="{{::patient.image}}" fallback-src='../images/blank-user.png'>
-                    <div class="profile">
-                     <div class="patient-name">{{::patient.name}}</div>
-                     <div ng-if="!preferExtraIdInSearchResults" class="patient-id">{{::patient.identifier}}</div>
-                     <div ng-if="preferExtraIdInSearchResults" class="patient-id">{{::patient.extraIdentifier}}</div>
-                    </div>
+                    <div class="patient-name">{{::patient.name}}</div>
+                    <div ng-if="!preferExtraIdInSearchResults" class="patient-id">{{::patient.identifier}}</div>
+                    <div ng-if="preferExtraIdInSearchResults" class="patient-id">{{::patient.extraIdentifier}}</div>
                     <span class="icons-container">
                         <i class="ipd-indication fa fa-bed" ng-if="::(patient.hasBeenAdmitted===true||patient.hasBeenAdmitted==='true')"></i>
                         <i ng-if="::iconAttributeConfig.attrName && patient[iconAttributeConfig.attrName] === iconAttributeConfig.attrValue || (patient.customAttribute ? patient.customAttribute[iconAttributeConfig.attrName] === iconAttributeConfig.attrValue : false)" class="ipd-indication" ng-class="iconAttributeConfig.icon" ng-style="{{iconAttributeConfig.iconStyle}}"></i>

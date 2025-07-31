@@ -1,5 +1,3 @@
-
-
 <section class="block hierarchy visit-dashboard">
     <h2 class="section-title has-link"
         ng-dialog="../common/displaycontrols/forms/views/allForms.html"
@@ -7,7 +5,7 @@
         ng-dialog-controller="patientDashboardAllFormsController" ng-dialog-data="{{dialogData}}"
         ng-show="isOnDashboard">
         <span class="title-link"> {{section | titleTranslate}}</span>
-        <img src="../images/Roundright.png" alt="Open in new window" class="external-link-img" />
+        <i class="fa fa-external-link"></i>
     </h2>
     <div>
         <p class="placeholder-text" ng-if="formsNotFound">{{ 'NO_FORM_FOUND_FOR_PATIENT' | translate }}</p>

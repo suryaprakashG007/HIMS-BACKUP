@@ -1,0 +1,22 @@
+name: Install Dependencies
+description: Use node and install the project dependencies
+inputs:
+  NPM_TOKEN:
+    required: true
+    description: "Auth token for npm"
+
+runs:
+  using: "composite"
+  steps:
+    - name: ⎔ Use Node.js
+      uses: actions/setup-node@v3
+      env:
+        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
+      with:
+        node-version: "14.x"
+        cache: "yarn"
+    - name: 📥 Install dependencies
+      shell: bash
+      run: yarn install --frozen-lockfile
+      env:
+        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}

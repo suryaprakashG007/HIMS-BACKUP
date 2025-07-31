@@ -1,32 +1,11 @@
-<style>
-    
-.button, button, input[type="submit"], .input-prepend [type="submit"].add-on, input[type="button"], .input-prepend [type="button"].add-on, input[type="reset"], .input-prepend [type="reset"].add-on, input[type="submit"], .input-prepend [type="submit"].add-on, a.button {
-    border-radius: 0px;
-    background: none;
-    background-color: none;
-    border: none;
-    padding: none !important;
-    display: flex !important;
-    color: #363463;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-}
-.button, button, input[type="submit"], .input-prepend [type="submit"].add-on, input[type="button"], .input-prepend [type="button"].add-on, input[type="submit"], .input-prepend [type="submit"].add-on, a.button {
-    padding: 7px 10px;
-}
-</style>
-
-
 <div ng-controller="OrderSetController">
-    <section class="section-grid orderSet-container" style="border: 1px solid #0000001C;border-radius: 8px;background: #FFFFFF;">
-        <h2 class="section-title" style="background: #1A57E826;color: black;font-weight: bold;">Order Set Details</h2>
+    <section class="section-grid orderSet-container">
+        <h2 class="section-title">Order Set Details</h2>
 
         <form single-submit="save()" class="orderSet-form form clearfix">
             <section class="new-orderSet-wrapper clearfix">
                 <div class="row">
-                    <div class="col col1 form-field" style="display: flex;flex-direction: column;margin-right: 25px;">
+                    <div class="col col1 form-field">
                         <div class="field-attribute">
                             <label>Name <span class="asterick">*</span></label>
                         </div>
@@ -34,7 +13,7 @@
                             <input type="text" ng-model="orderSet.name" required>
                         </div>
                     </div>
-                    <div class="col col2 form-field" style="display: flex;flex-direction: column;margin-right: 25px;">
+                    <div class="col col2 form-field">
                         <div class="field-attribute">
                             <label>Description <span class="asterick">*</span>
                             </label>
@@ -43,30 +22,31 @@
                             <input type="text" ng-model="orderSet.description" required>
                         </div>
                     </div>
-                    <div class="col col3 form-field" style="display: flex;flex-direction: column;">
+                    <div class="col col3 form-field">
                         <div class="field-attribute">
                             <label>Operator <span class="asterick">*</span>
                             </label>
                         </div>
                         <div class="field-value">
-                            <select ng-model="orderSet.operator" ng-options="operator for operator in operators" required>
-                            </select>
+                            <select ng-model="orderSet.operator" ng-options="operator for operator in operators"
+                                    required></select>
                         </div>
                     </div>
                 </div>
             </section>
             <div class="orderSetMember-wrapper">
 
+                <input type="button" ng-click="addOrderSetMembers()" value="Add New Members"
+                       class="button add-more-btn btn-small fr">
+
                 <fieldset>
-                    <legend class="mylegend" style="background: #CEDDFF !important;display: flex;flex-direction: row;justify-content: space-between;align-items: center;justify-items: center;" >
-                        <span > Order Set Members</span>
-                        <input type="button" ng-click="addOrderSetMembers()" value="+ Add Members"
-                       class="button add-more-btn btn-small fr" style="border: 1.5px solid #1A57E8;border-radius: 34px;margin-top: 20px;margin-right: 20px;color: #265FE6;">
+                    <legend class="mylegend">
+                        <span> Order Set Members</span>
                     </legend>
                     <div ng-repeat="orderSetMember in orderSet.orderSetMembers" ng-if="!(orderSetMember.voided || orderSetMember.retired)"  class="primary-section-grid clearfix">
                         <div class="row">
-                            <div class="clearfix order-drug-option" ng-class="{'column-container' : orderSetMember.concept.uuid}" >
-                                <div class="col col1 form-field" style="display: flex;flex-direction: column;">
+                            <div class="clearfix order-drug-option" ng-class="{'column-container' : orderSetMember.concept.uuid}">
+                                <div class="col col1 form-field">
                                     <div class="field-attribute">
                                         <label>Order Type <span class="asterick">*</span></label>
                                     </div>
@@ -77,7 +57,7 @@
                                                 required></select>
                                     </div>
                                 </div>
-                                <div class="col col2 form-field" style="display: flex;flex-direction: column;">
+                                <div class="col col2 form-field">
                                     <div class="field-attribute">
                                         <label>Concept Name<span class="asterick">*</span></label>
                                     </div>
@@ -97,18 +77,19 @@
                                                placeholder="Enter a concept name"/>
                                     </div>
                                 </div>
-                                
-                            <div class="action-container fr" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; gap: 4px;">
-                            <span class="button" ng-click="moveUp(orderSetMember)" style="display: flex; align-items: center;">
-                            <img src="/bahmni/images/Upicon.png" alt="Up" style="height: 24px; width: 24px;">
-                            </span>
-                            <span class="button" ng-click="moveDown(orderSetMember)" style="display: flex; align-items: center;">
-                            <img src="/bahmni/images/Downicon.png" alt="Down" style="height: 24px; width: 24px;">
-                            </span>
-                            <span class="button" ng-click="remove(orderSetMember)" style="display: flex; align-items: center;">
-                            <img class="remove-orderSet" src="/bahmni/images/Crossicon.png" alt="Remove" style="cursor: pointer; height: 24px; width: 24px;padding: 0;margin: 0;">
-                            </span>
-                            </div>
+                                <div class="col col3 form-field">
+                                    <div class="col col4 form-field">
+                                        <input class="fl remove-orderSet" type="button" ng-click="remove(orderSetMember)" value="X" tabindex="-1">
+                                    </div>
+                                </div>
+                                <div class="action-container fr">
+                                    <span class="button" ng-click="moveUp(orderSetMember)">
+                                        <i class="fa fa-arrow-circle-up"></i>
+                                    </span>
+                                    <span class="button" ng-click="moveDown(orderSetMember)">
+                                        <i class="fa fa-arrow-circle-down"></i>
+                                    </span>
+                                </div>
                             </div>
 
                             <div ng-if="orderSetMember.concept.uuid" class="treatment-page">
@@ -118,9 +99,9 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="submit-btn-container clearfix" style="margin-right: 50px;">
-                <button type="submit" class="secondary-button fr" accesskey="s" style="background: #1A57E8; border-radius: 6px;padding-left: 20px;padding-right: 20px;gap: 50px;">Save</button>
-                <button type="reset" class="button fr" accesskey="c" style="border:1px solid #D9DBDE; border-radius: 6px;padding-left: 15px;padding-right: 15px;">Cancel</button>
+            <div class="submit-btn-container clearfix">
+                <button type="submit" class="secondary-button fr" accesskey="s"><u>S</u>ave</button>
+                <button type="reset" class="button fr" accesskey="c"><u>C</u>ancel</button>
             </div>
         </form>
     </section>

@@ -210,16 +210,15 @@ concept-set {
     @include clearfix();
     cursor: pointer;
     position: relative;
-    background: rgba(13, 45, 123, 1);
+    background: darken($bahmniSecondaryColor, 10%);
     padding: 0 100px 0 0;
     border-radius: 3px 3px 0 0;
     h2.section-title {
       padding: 0;
-      background:rgba(13, 45, 123, 1);
+      background: darken($bahmniSecondaryColor, 10%);
       padding: 10px 0 10px 10px;
       font-size: 14px;
       border-radius: 3px 3px 0 0;
-      text-decoration: none !important;
       button {
         font-size: 12px;
         font-family: Opensans, Arial, sans-serif;
@@ -694,7 +693,7 @@ concept-set {
             font-size: 14px;
           }
           &:hover {
-            background: rgba(26, 87, 232, 0.1);
+            background: $observationTitleHover;
           }
         }
         .button-wrap {
@@ -720,7 +719,7 @@ concept-set {
         }
         &.active {
           a {
-            background:rgba(13, 45, 123, 1);
+            background: darken($bahmniSecondaryColor, 10%);
             color: $white;
             font-family: $OpenSansSemiBoldFont;
           }

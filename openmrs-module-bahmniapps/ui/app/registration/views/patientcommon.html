@@ -1,282 +1,127 @@
 <div ng-controller="PatientCommonController">
-    <div class="box-container box-container-patient-info patient-common-info-container" style="border-top-left-radius: 0 ;border-top-right-radius: 0;border-bottom-left-radius:10px;border-bottom-right-radius: 10px;">
+    <div class="box-container box-container-patient-info patient-common-info-container">
         <section>
- <article class="form-field patient-name-wrapper">
-  <div class="field-value">
-    <label style="margin-bottom: 10px; margin-left: 3.5%;margin-top: 20px; font-family: 'Outfit', sans-serif;
-    font-size: 15px;">
-      {{::'REGISTRATION_LABEL_PATIENT_NAME' | translate}}<span class="asterick">*</span>
-    </label>
+            <article class="form-field patient-name-wrapper" ng-if="::patientConfiguration.local()['showNameField']">
+                <div class="field-attribute">
+                    <label for="patientName">{{::getTranslatedPatientControls(patientConfiguration.local()['labelForNameField'])}}<span class="asterick" ng-show="localLanguageNameIsRequired()">*</span></label>
+                </div>
+                <div class="field-value" id="patientNameLocal">
+                    <span ng-repeat="nameField in patientNameDisplayOrder">
+                        <input type="text" id="givenNameLocal" ng-model="patient.givenNameLocal" pattern-validate
+                               placeholder="{{::'PATIENT_ATTRIBUTE_GIVEN_NAME_LOCAL' | translate}}" focus-me="true"
+                               ng-if="nameField === 'firstName'" ng-required={{localLanguageNameIsRequired('givenNameLocal')}}>
+                        <input ng-show="::showMiddleName" type="text" id="middleNameLocal"
+                               ng-model="patient.middleNameLocal"
+                               pattern-validate
+                               placeholder="{{::'PATIENT_ATTRIBUTE_MIDDLE_NAME_LOCAL' | translate}}"
+                               ng-if="nameField === 'middleName'" ng-required={{localLanguageNameIsRequired('middleNameLocal')}}>
+                        <input type="text" ng-show="::showLastName" id="familyNameLocal" ng-model="patient.familyNameLocal" pattern-validate
+                               placeholder="{{::'PATIENT_ATTRIBUTE_FAMILY_NAME_LOCAL' | translate}}"
+                               ng-if="nameField === 'lastName'" ng-required={{localLanguageNameIsRequired('familyNameLocal')}}>
+                    </span>
+                </div>
+            </article>
+            <article class="form-field patient-name-wrapper">
+                <div class="field-attribute">
+                    <label for="patientName">{{ ::'REGISTRATION_LABEL_PATIENT_NAME' | translate}}<span class="asterick">*</span></label>
+                </div>
+                <div class="field-value patient-name" id="patientName">
+                <span ng-repeat="nameField in patientNameDisplayOrder">
+                    <span data-ng-switch="::isAutoComplete('givenName')"
+                          ng-if="::patientConfiguration.local()['showNameField'] && nameField === 'firstName'">
+                          <input data-ng-switch-when="true"
+                                 type="text" id="givenName" ng-disabled = "isDisabledAttribute('givenName')" ng-model="$parent.patient.givenName" non-blank pattern-validate
+                                 my-autocomplete source="getAutoCompleteList" response-map="getDataResults"
+                                 data-item-type="personName"
+                                 placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
+                                 title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}">
+                          <input data-ng-switch-default
+                                 type="text" id="givenName" ng-disabled = "isDisabledAttribute('givenName')" ng-model="patient.givenName" non-blank pattern-validate
+                                 placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
+                                 title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}">
+                    </span>
+                    <span data-ng-switch="::isAutoComplete('givenName')"
+                          ng-if="::!patientConfiguration.local()['showNameField'] && nameField === 'firstName'">
+                      <input data-ng-switch-when="true"
+                             type="text" id="givenName" ng-disabled = "isDisabledAttribute('givenName')" ng-model="$parent.patient.givenName" non-blank pattern-validate
+                             my-autocomplete source="getAutoCompleteList" response-map="getDataResults"
+                             data-item-type="personName"
+                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
+                             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true">
+                      <input data-ng-switch-default
+                             type="text" id="givenName" ng-disabled = "isDisabledAttribute('givenName')" ng-model="patient.givenName" non-blank pattern-validate
+                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_FIRSTNAME' | translate}}"
+                             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}" focus-me="true">
+                    </span>
+                    <span ng-show="::showMiddleName" data-ng-switch="::isAutoComplete('middleName')"
+                          ng-if="nameField === 'middleName'">
+                      <input data-ng-switch-when="true"
+                             type="text" id="middleName" ng-disabled = "isDisabledAttribute('middleName')" ng-model="$parent.patient.middleName" pattern-validate
+                             my-autocomplete source="getAutoCompleteList" response-map="getDataResults"
+                             data-item-type="personName"
+                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}"
+                             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}">
+                      <input data-ng-switch-default
+                             type="text" id="middleName" ng-disabled = "isDisabledAttribute('middleName')" ng-model="patient.middleName" pattern-validate
+                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_MIDDLE_NAME' | translate}}"
+                             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}">
+                    </span>
+                    <span ng-show="::showLastName" data-ng-switch="::isAutoComplete('familyName')"
+                          ng-if="nameField === 'lastName'">
+                      <input data-ng-switch-when="true"
+                             type="text" id="familyName" ng-disabled = "isDisabledAttribute('familyName')" ng-model="$parent.patient.familyName"
+                             pattern-validate
+                             my-autocomplete source="getAutoCompleteList" response-map="getDataResults"
+                             data-item-type="personName"
+                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
+                             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}" ng-required="::isLastNameMandatory">
+                      <input data-ng-switch-default
+                             type="text" id="familyName" ng-disabled = "isDisabledAttribute('familyName')" ng-model="patient.familyName"  pattern-validate
+                             placeholder="{{ ::'REGISTRATION_LABEL_PATIENT_LAST_NAME' | translate}}"
+                             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}" ng-required="::isLastNameMandatory">
+                    </span>
+                </span>
+                    <!--<span class="input-label-inline caste-lastname" ng-show="showCasteSameAsLastName()">
+                        <input type="checkbox" id="casteSameAsLastNameCheck" ng-model="patient.sameAsLastName"
+                               ng-change="setCasteAsLastName()">
+                        <label id="casteSameAsLastNameCheckLabel" for="casteSameAsLastNameCheck">{{ 'REGISTRATION_LABEL_CASTE_SAME_LAST_NAME' | translate}}</label>
+                    </span>-->
+                </div>
+                <div class="field-value showOn-desktop" ng-show="::showCasteSameAsLastName()">
+                    <input type="checkbox" id="casteSameAsLastNameCheck" ng-model="patient.sameAsLastName"
+                           ng-change="setCasteAsLastName()">
+                </div>
+                <div class="field-attribute" ng-show="::showCasteSameAsLastName()">
+                    <label id="casteSameAsLastNameCheckLabel" for="casteSameAsLastNameCheck">{{::'REGISTRATION_LABEL_CASTE_SAME_LAST_NAME'
+                        | translate}}</label>
+                </div>
+                <div class="field-value showOn-small-screen" ng-show="::showCasteSameAsLastName()">
+                    <input type="checkbox" id="casteSameAsLastNameCheck" ng-model="patient.sameAsLastName"
+                           ng-change="setCasteAsLastName()">
+                </div>
+            </article>
+        </section>
+        <section class="form-field form-field-gender">
+            <article class="form-field">
+                <div class="field-attribute">
+                    <label for="gender">{{ ::'REGISTRATION_LABEL_GENDER' | translate}} <span
+                            class="asterick">*</span></label>
+                </div>
 
-    <style>
-  .responsive-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 0 2.5%;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  .responsive-row > div {
-    flex: 1 1 200px;
-    min-width: 150px;
-    margin: 0 10px;
-  }
-
-  .responsive-row input[type="text"] {
-    width: 100%;
-    padding: 6px 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-  /* Ensure all fields fit in one row on 1280px screen */
-  @media (min-width: 1280px) {
-    .responsive-row {
-      flex-wrap: nowrap;
-      gap: 16px;
-    }
-
-    .responsive-row > div {
-      flex: 1 1 auto;
-      max-width: calc(33% - 12px);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .responsive-row {
-      gap: 16px;
-    }
-
-    .responsive-row > div {
-      flex: 1 1 45%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .responsive-row > div {
-      flex: 1 1 100%;
-      margin: 0 0 10px;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .responsive-row > div {
-      flex: 1 1 100%;
-      gap: 8px;
-    }
-
-    .responsive-row input[type="text"] {
-      padding: 8px;
-    }
-  }
-</style>
-
-
-
-   <div class="responsive-row">
-  <!-- First Name -->
-  <div ng-if="patientNameDisplayOrder.indexOf('firstName') !== -1">
-    <span data-ng-switch="::isAutoComplete('givenName')">
-      <input ng-switch-when="true"
-             type="text"
-             id="givenName"
-             ng-disabled="isDisabledAttribute('givenName')"
-             ng-model="$parent.patient.givenName"
-             my-autocomplete
-             source="getAutoCompleteList"
-             response-map="getDataResults"
-             data-item-type="personName"
-             placeholder="First Name"
-             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}"
-             non-blank
-             pattern-validate
-             focus-me="true" />
-      <input ng-switch-default
-             type="text"
-             id="givenName"
-             ng-disabled="isDisabledAttribute('givenName')"
-             ng-model="patient.givenName"
-             placeholder="First Name"
-             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_NAME' | translate}}"
-             non-blank
-             pattern-validate
-             focus-me="true" />
-    </span>
-  </div>
-
-  <!-- Middle Name -->
-  <div ng-if="patientNameDisplayOrder.indexOf('middleName') !== -1 && showMiddleName">
-    <span data-ng-switch="::isAutoComplete('middleName')">
-      <input ng-switch-when="true"
-             type="text"
-             id="middleName"
-             ng-disabled="isDisabledAttribute('middleName')"
-             ng-model="$parent.patient.middleName"
-             my-autocomplete
-             source="getAutoCompleteList"
-             response-map="getDataResults"
-             data-item-type="personName"
-             placeholder="Middle Name"
-             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}"
-             pattern-validate />
-      <input ng-switch-default
-             type="text"
-             id="middleName"
-             ng-disabled="isDisabledAttribute('middleName')"
-             ng-model="patient.middleName"
-             placeholder="Middle Name"
-             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_MIDDLE_NAME' | translate}}"
-             pattern-validate />
-    </span>
-  </div>
-
-  <!-- Last Name -->
-  <div ng-if="patientNameDisplayOrder.indexOf('lastName') !== -1 && showLastName">
-    <span data-ng-switch="::isAutoComplete('familyName')">
-      <input ng-switch-when="true"
-             type="text"
-             id="familyName"
-             ng-disabled="isDisabledAttribute('familyName')"
-             ng-model="$parent.patient.familyName"
-             my-autocomplete
-             source="getAutoCompleteList"
-             response-map="getDataResults"
-             data-item-type="personName"
-             placeholder="Last Name"
-             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}"
-             ng-required="::isLastNameMandatory"
-             pattern-validate />
-      <input ng-switch-default
-             type="text"
-             id="familyName"
-             ng-disabled="isDisabledAttribute('familyName')"
-             ng-model="patient.familyName"
-             placeholder="Last Name"
-             title="{{::'REGISTRATION_LABEL_PATIENT_ENTER_LAST_NAME' | translate}}"
-             ng-required="::isLastNameMandatory"
-             pattern-validate />
-    </span>
-  </div>
-</div>
-
-<!-- Caste Same As Last Name -->
-<div ng-show="::showCasteSameAsLastName()" style="margin-top: 8px;">
-  <input type="checkbox"
-         id="casteSameAsLastNameCheck"
-         ng-model="patient.sameAsLastName"
-         ng-change="setCasteAsLastName()" />
-  <label for="casteSameAsLastNameCheck">
-    {{::'REGISTRATION_LABEL_CASTE_SAME_LAST_NAME' | translate}}
-  </label>
-</div>
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap');
-
-
-  /* Gender Field Container */
-  .form-field-gender {
-    margin-top: 20px;
-    width: 100%; /* Ensures it fits within its parent container */
-    max-width: 400px; /* Limit the width for readability */
-    margin-left: 4.5%;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  /* Field Value Wrapper */
-  .form-field-gender .field-value {
-    display: flex;
-    flex-direction: column;
-    gap: 8px; /* Space between label and select */
-  }
-
-  /* Label Styling */
-  .form-field-gender label {
-    font-size: 1rem;
-    color: black; /* Neutral color for readability */
-
-  }
-    .form-field-gender select option[value=""] {
-    font-family: 'Outfit', sans-serif;
-    color: black; /* Placeholder color */
-  }
-
-  /* Select Box Styling */
-  .form-field-gender select {
-    width: 50%; /* Use available width */
-    min-height: 35px;
-    padding: 6px 6px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    appearance: none; /* Removes default browser styles */
-    margin-left: 2%;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 1024px) {
-    .form-field-gender {
-      max-width: 350px; /* Slightly reduce max width for medium screens */
-    }
-
-    .form-field-gender select {
-      font-size: 0.95rem;
-      padding: 8px;
-      max-width: 250px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .form-field-gender {
-      max-width: 300px;
-    }
-
-    .form-field-gender select {
-      font-size: 0.9rem;
-      padding: 6px 8px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .form-field-gender {
-      max-width: 100%; /* Use full width on small screens */
-    }
-
-    .form-field-gender select {
-      font-size: 0.85rem;
-      padding: 6px;
-    }
-  }
-</style>
-
-
-
-<!-- Gender Field -->
-<article class="form-field form-field-gender" style="font-family: 'Outfit', sans-serif;">
-  <div class="field-value">
-    <label for="gender">
-      {{::'REGISTRATION_LABEL_GENDER' | translate}} <span class="asterick">*</span>
-    </label>
-    <select id="gender"
-            ng-model="patient.gender"
-            required
-            ng-disabled="isDisabledAttribute('gender')"
-            ng-options="genderMap[genderCode] for genderCode in genderCodes track by genderCode"
-            ng-change="handleUpdate('gender')"
-            title="{{ 'REGISTRATION_LABEL_SELECT_GENDER' | translate }}" style="font-family: 'Outfit', sans-serif;
-    font-size: 15px;">
-      <option value="" class="font-family: 'Outfit', sans-serif;
-    font-size: 15px;">{{::'REGISTRATION_LABEL_SELECT_GENDER' | translate}}</option>
-    </select>
-  </div>
-</article>
-
-
-
+                <div class="field-value">
+                    <select id="gender" ng-model="patient.gender" required="required" ng-disabled = "isDisabledAttribute('gender')" title="{{ 'REGISTRATION_LABEL_SELECT_GENDER'|translate }}"
+                            ng-options="genderMap[genderCode] for genderCode in genderCodes track by genderCode" ng-change="handleUpdate('gender')">
+                        <option value="">{{ ::'REGISTRATION_LABEL_SELECT_GENDER' | translate}}</option>
+                    </select>
+                    <!--<div class="selectGender">
+                        <ul>
+                            <li><a href="javascript:void(0)">Male</a></li>
+                            <li><a href="javascript:void(0)">Female</a></li>
+                            <li><a href="javascript:void(0)">Other</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </article>
         </section>
         <section class="age-wrapper">
             <div ng-if="::!dobMandatory">
@@ -288,8 +133,8 @@
                 <ng-include src="'views/age.html'"></ng-include>
             </div>
         </section>
-        <legend class="registraion_legend" ng-if="::addressLevels.length>0" style="color: #1A57E8;margin-top: 30px;margin-left: 0.5%;font-family: 'Outfit', sans-serif;">
-            <span class="mylegend"><strong>{{ ::'REGISTRATION_LABEL_ADDRESS_INFO' | translate}}</strong> </span>
+        <legend class="registraion_legend" ng-if="::addressLevels.length>0">
+            <span class="mylegend"> {{ ::'REGISTRATION_LABEL_ADDRESS_INFO' | translate}}</span>
         </legend>
 
         <section address-fields data-address-levels="::addressLevels" data-address="patient.address"
@@ -310,99 +155,20 @@
             <extra-patient-identifiers field-validation="::fieldValidation"></extra-patient-identifiers>
         </section>
 
-        <legend class="registraion_legend" ng-if="patientConfiguration.customAttributeRows().length > 0" style="color: #1A57E8;margin-left: 1%; ">
-            <span class="mylegend"><strong>{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</strong></span>
+        <legend class="registraion_legend" ng-if="patientConfiguration.customAttributeRows().length > 0">
+            <span class="mylegend">{{ ::'REGISTRATION_LABEL_OTHER_INFO' | translate}}</span>
         </legend>
-<style>
-  /* Container for the entire section */
-  .custom-attribute-section {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-  }
 
-  /* Article to wrap each row */
-  .custom-attribute-row {
-    display: contents;
-  }
-
-  /* Each field container */
-  .attribute-container {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-    min-width: 200px;
-    box-sizing: border-box;
-    margin: 0 10px;
-  }
-
-  /* Responsive Styles */
-  @media (min-width: 1280px) {
-    .custom-attribute-section {
-      flex-wrap: nowrap; /* Single row on larger screens */
-    }
-
-    .attribute-container {
-      flex: 1 1 calc(33% - 20px); /* Three fields per row */
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .custom-attribute-section {
-      flex-wrap: wrap; /* Allow wrapping for medium screens */
-    }
-
-    .attribute-container {
-      flex: 1 1 calc(50% - 20px); /* Two fields per row */
-      min-width: 150px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .custom-attribute-section {
-      flex-wrap: wrap;
-    }
-
-    .attribute-container {
-      flex: 1 1 100%; /* Full width for smaller screens */
-      margin: 10px 0;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .attribute-container {
-      min-width: 100%;
-      margin: 5px 0;
-    }
-  }
-</style>
-
-
-<section class="custom-attribute-section">
-  <article ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()"
-           ng-init="row = attributeRow"
-           class="custom-attribute-row">
-    <div ng-repeat="attribute in ::row" class="attribute-container">
-      <attribute-types 
-        target-model="patient"
-        attribute="::attribute"
-        field-validation="::fieldValidation"
-        is-auto-complete="isAutoComplete"
-        get-auto-complete-list="getAutoCompleteList"
-        get-data-results="getDataResults"
-        is-read-only="isReadOnly"
-        handle-update="handleUpdate">
-      </attribute-types>
-    </div>
-  </article>
-</section>
-
+        <section class="form-field-inline clearfix"
+                 ng-repeat="attributeRow in ::patientConfiguration.customAttributeRows()">
+            <article class="form-field" ng-repeat="attribute in ::attributeRow"
+                     ng-class="::{'right-form-field' : $index%2 != 0}">
+                <attribute-types target-model="patient" attribute="::attribute" field-validation="::fieldValidation"
+                                 is-auto-complete="isAutoComplete" get-auto-complete-list="getAutoCompleteList"
+                                 get-data-results="getDataResults" is-read-only="isReadOnly" handle-update="handleUpdate"
+                ></attribute-types>
+            </article>
+        </section>
     </div>
 
     <div ng-repeat="section in ::patientConfiguration.getOrderedPatientAttributesSections()"

@@ -1,158 +1,33 @@
-<style>
-  /* Container for the entire DOB section */
-  #dob {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 16px;
-    max-width: 100%; /* Allow flexibility for parent containers */
-    margin-left: 2.5%;
-    font-family: 'Outfit', sans-serif;
-  }
- 
-  /* Label and attribute container */
-  #dob .field-attribute {
-    min-width: 150px;
-    margin-right: 20px;
-  }
- 
-  /* Input row containing the date input and checkbox */
-  #dob .dob-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-  }
- 
-  #dob .dob-row input[type="date"],
-  #dob .dob-row input[type="time"] {
-    min-width: 150px;
-    max-width: 250px;
-    padding: 6px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
- 
-  #dob .dob-row input[type="checkbox"] {
-    margin-left: 20px;
-    transform: scale(1.2); /* Slightly larger for better accessibility */
-  }
- 
-  #dob .dob-row label {
-    white-space: nowrap; /* Prevent label text from wrapping */
-  }
- 
-  /* Birth time container */
-  #dob .birth-time {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-    margin-top: 8px;
-  }
- 
-  #dob .birth-time label {
-    font-size: 0.9rem;
-    color: #333;
-  }
- 
-  #dob .birth-time input[type="time"] {
-    min-width: 150px;
-    max-width: 250px;
-    padding: 6px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
- 
-  /* Responsive Styles */
-  @media (max-width: 1024px) {
-    #dob {
-      max-width: 90%;
-      margin-left: 5%;
-    }
- 
-    #dob .dob-row input[type="date"],
-    #dob .dob-row input[type="time"] {
-      max-width: 100%;
-    }
-  }
- 
-  @media (max-width: 768px) {
-    #dob {
-      gap: 8px;
-    }
- 
-   
- 
-    #dob .dob-row input[type="checkbox"] {
-      margin-left: 0;
-      margin-top: 8px;
-    }
-  }
- 
-  @media (max-width: 480px) {
-    #dob {
-      margin-left: 5%;
-      max-width: 95%;
-    }
-     #dob .dob-row,
-    #dob .birth-time {
-      flex-direction: column;
-      align-items: flex-start;
-    }
- 
-    #dob .dob-row input[type="date"],
-    #dob .dob-row input[type="time"] {
-      max-width: 100%;
-    }
-  }
-</style>
-
-
-
-<article id="dob">
-  <!-- Label -->
-  <div class="field-attribute">
-    <label for="birthdate">
-      {{ ::'REGISTRATION_LABEL_DOB' | translate }}
-      <span class="asterick" ng-show="::dobMandatory">*</span>
-    </label>
-  </div>
- 
-  <!-- Input Row -->
-  <div class="dob-row">
-    <input id="birthdate"
-           type="date"
-           ng-model="patient.birthdate"
-           ng-disabled="isDisabledAttribute('birthDate')"
-           max="{{::today}}"
-           ng-change="patient.calculateAge()"
-           ng-blur="handleUpdate('birthdate')"
-           ng-required="::dobMandatory"
-           placeholder="{{ ::'REGISTRATION_LABEL_SELECT_DATE' | translate }}" />
- 
-    <input type="checkbox"
-           ng-model="patient.birthdateEstimated"
-           id="birthdateEstimated"
-           ng-blur="handleUpdate('birthdateEstimated')"
-           class="estimate-check"
-           ng-disabled="isDisabledAttribute('birthDate')" />
- 
-    <label for="birthdateEstimated">
-      {{ ::'REGISTRATION_LABEL_ESTIMATE' | translate }}
-    </label>
-  </div>
- 
-  <!-- Birth Time -->
-  <div class="birth-time" ng-show="::showBirthTime">
-    <label for="birthtime">
-      {{ ::'REGISTRATION_LABEL_BIRTH_TIME' | translate }}
-    </label>
-    <input id="birthtime"
-           type="time"
-           ng-model="patient.birthtime"
-           ng-blur="handleUpdate('birthtime')" />
-  </div>
+<article class="form-field dob-birthtime-wrapper" id="dob">
+    <div class="field-attribute">
+        <label for="birthdate">{{ ::'REGISTRATION_LABEL_DOB' | translate}}<span class="asterick" ng-show="::dobMandatory">*</span></label>
+    </div>
+    <div class="field-value">
+        <input id="birthdate" type="date" ng-model="patient.birthdate" ng-disabled="isDisabledAttribute('birthDate')"  max="{{::today}}"
+               ng-change="patient.calculateAge()" ng-blur="handleUpdate('birthdate')" ng-required="::dobMandatory">
+    </div>
+    <div class="showOn-desktop-registration">
+        <div class="field-value">
+            <input type="checkbox" ng-model="patient.birthdateEstimated" id="birthdateEstimated"
+                   ng-blur="handleUpdate('birthdateEstimated')" class="estimate-check" ng-disabled="isDisabledAttribute('birthDate')">
+        </div>
+        <div class="field-attribute estimated-label">
+            <label for="birthdate">{{ ::'REGISTRATION_LABEL_ESTIMATE' | translate}}</label>
+        </div>
+    </div>
+    <div class="showOn-small-screen-registration clearfix">
+        <div class="field-attribute estimated-label">
+            <label for="birthdate">{{ ::'REGISTRATION_LABEL_ESTIMATE' | translate}}</label>
+        </div>
+        <div class="field-value">
+            <input type="checkbox" id="birthdateEstimated" ng-disabled="isDisabledAttribute('birthDate')" ng-model="patient.birthdateEstimated"
+                   class="estimate-check">
+        </div>
+    </div>
+    <div ng-show="::showBirthTime" class="field-attribute">
+        <label for="birthtime">{{ ::'REGISTRATION_LABEL_BIRTH_TIME' | translate}}</label>
+    </div>
+    <div ng-show="::showBirthTime" class="field-value">
+        <input id="birthtime" type="time" ng-model="patient.birthtime" ng-blur="handleUpdate('birthtime')">
+    </div>
 </article>

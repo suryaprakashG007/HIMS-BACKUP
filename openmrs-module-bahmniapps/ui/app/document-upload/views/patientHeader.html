@@ -1,147 +1,16 @@
-<!-- <style>
-    .opd-header-wrapper{
-        margin: 0;
-        padding: 0;
-        position :fixed;
-       
-    }
- 
-    .opd-header-top{
-        background-color: #061436;
-        width: 100%;
-        padding: 15px 0px;
-        position: relative;
-       
-       
-    }
- 
-    .opd-header-wrapper header{
-        background-color: #061436;
-        margin-left: 0;
-       
-    }
- 
-  .custom-back-button {
-    background-color: #FFFFFF33;
-    margin-left: 4%;
-    padding: 12px 16px;
-    border-radius: 60%;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 5px;
-  }
- 
-  .custom-back-button i{
-    color: white;
-    font-size: 20px;
-  }
-
-
-.btn-user-info {
-  background-color: #FFFFFF1C !important;
-  border: none;
-  border-radius: 999px !important;
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 60% !important;
-}
- 
-.doctor-profile {
-  width: 45px;
-  height: 45px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-left: -10px;
-}
- 
-.btn-user-info .fa.mini {
-  font-size: 12px;
-  color: white;
-  margin-left: 6px;
-}
- 
-</style>
-
-
-
-
-
 <div class="opd-header-wrapper">
     <div class="opd-header-top">
         <header>
             <bm-back-links></bm-back-links>
-            <a class="custom-back-button" href="../home/">
-  <img src="https://i.postimg.cc/SR30ZVbY/home.png"
-       alt="home" width="18" height="18">
-</a>
- 
-<a class="custom-back-button" href="#/search" ng-hide="$location.path() === '/patient/c7183b99-6d1c-4b7a-890c-960e1784e904/document'">
- 
-</a> -->
- 
-           
-            <!-- <button class="btn-user-info">
-               <img src="https://i.postimg.cc/YSNHpTJp/3e7649a81e1ea5cb4b2310e4504f9b2222b3a2d1.jpg"
-               alt="doctor-profile" class="doctor-profile">
-                <i class="fa fa-caret-down fa-white mini" ></i>
+            <button class="btn-user-info">
+                <i class="fa fa-user-md fa-white small"></i>
+                <i class="fa fa-caret-down fa-white mini"></i>
             </button>
-           
-           
             <ul>
                 <li>
                     <a log-out>
-                        <i class="fa fa-power-off fa-white mini"></i>
+                        <i class="fa fa-power-off fa-white small"></i>
                         <span class="nav-link">{{::'LOGOUT_TRANSLATION_KEY' | translate}}</span>
-                    </a>
-                </li>
-            </ul>
-        </header>
-    </div>
-</div> --> 
-
-<style>
-    .user-actions, .opd-header-wrapper header .btn-user-info {
-    background:#FFFFFF1C ;
-    border-radius: 26.5px;
-    margin-right: 15px;
-    margin-top: 0px;
-  }
-      .user-actions + ul li, .opd-header-wrapper header .btn-user-info + ul li {
-    float: left;
-    clear: both;
-    text-align: left;
-    border-bottom: none !important;
-    margin: 0;
-}
-.user-actions + ul li a, .opd-header-wrapper header .btn-user-info + ul li a {
-    padding: 10px 5px;
-    display: inline-block;
-    min-width: 120px;
-    color: #fff;
-}
-</style>
-
-
-<div class="opd-header-wrapper">
-    <div class="opd-header-top">
-        <header style="background: #061436;">
-            <bm-back-links></bm-back-links>
-            <button class="btn-user-info fr" style="margin-top: 13px; height: 35px;width:65px; align-items: center; justify-items: center; display: flex; padding: 0; gap: 5px;">
-            <img src="/bahmni/images/Doctor.png" alt="doctor" style="width: 35px; height: 35px; margin-left: 0px;">
-            <i class="fa fa-caret-down fa-white mini"></i>
-            </button>
-            <ul>
-                <li>
-                    <a log-out style="background: #FFFFFF;border:1px solid #00000026;color: #000000;display: flex;gap: 10px;align-items: center;">
-                        <img src="/bahmni/images/Logouticon.png" alt="logout" style="width: 17px;height: 17px;">
-                        <span class="nav-link" style="font-weight: bold;">{{::'LOGOUT' | translate}}</span>
                     </a>
                 </li>
             </ul>

@@ -1,810 +1,14 @@
-<!-- <style>
-    body {
-        background-color: white;
-    }
-
-    .gallery {
-        margin-top: 18%;
-        background-color: #1A57E826;
-        border-radius: 10px;
-        padding: 0%;
-
-    }
-
-    .visit-header {
-        background-color: #1A57E826;
-        color: white;
-        padding: 20px 20px;
-        width: 100%;
-        box-sizing: border-box;
-        justify-content: space-between;
-        display: flex;
-    }
-
-    h4 {
-        margin-top: 7px;
-        font-size: 17px;
-        color: black;
-
-    }
-
-
-    .custom-toggle-icon {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background-color: #638FFC; -->
-        <!-- /* deep blue */
-        /* cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .arrow-svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .arrow-svg.flipped {
-        transform: rotate(180deg);
-    }
-    
-    .form-field {
-        flex: 1;
-        min-width: 200px;
-    }
-
-    .field-value {
-        all: unset;
-        width: 100%;
-        padding: 5px 10px;
-        box-sizing: border-box;
-    }
-
-    .field-value select {
-        width: 100% !important;
-        padding: 18px 90px !important;
-      
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        appearance: none;
-
-    } 
-
-    .form-row {
-        all: unset;
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10%;
-    }
-
-    .field-value {
-        margin-top: 3%;
-    }
-
-        input[type="date"] {
-        background-position: right 0.5rem center;
-        background-repeat: no-repeat;
-        background-size: auto;
-        }
-
-
-    .field-value input[type="date"] {
-        all: unset;
-        width: 170% !important;
-        padding-top: 8px !important;
-        padding-bottom: 8px !important;
-        background-color: #fff !important;
-        border: 1px solid #ccc !important;
-        border-radius: 6px !important;
-        box-sizing: border-box !important;
-    }
-
-  
-
-    div.field-value {
-        all: unset;
-        margin-top: 4% !important;
-
-    }
-
-    .upload-inline-buttons {
-        all: unset;
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 6%;
-        gap: 30px;
-        margin-right: 4%;
-
-    }
-
-    .upload-inline-buttons label[for="file-browse"] {
-        all: unset;
-        background-color: #1570EF !important;
-        color: #ffffff !important;
-        padding: 10px 72px !important;
-        border: none !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        display: inline-flex !important;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        text-align: center;
-        text-decoration: none;
-        text-align: center;
-    }
-
-
-    .upload-inline-buttons button[type="submit"] {
-        background-color: #1570EF !important;
-        color: white !important;
-        padding: 0px 80px !important;
-        font-weight: 600;
-        border: none !important;
-        border-radius: 8px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-
-        opacity: 1.5;
-    }
-
-    
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  
-  background-color: white; 
-  color: #7A8699;
-  border-radius: 4px;
-  font-size: 19px !important;
-  cursor: pointer;
-  
-}
-
-
-    .file{
-        all: unset;
-        margin-left: 2% !important;
-    }
-
-    .concept-name {
-        all: unset;
-        padding: 15px 25px !important;
-        background-color: white;
-        border: 1px solid black;
-        border-radius: 5px;
-        box-sizing: border-box;
-        margin-top: 5px !important;
-        margin-left: 1% !important;
-    }
-
-    .prescription-header {
-        all: unset;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: 20px 20px;
-        background-color: #1A57E826 !important;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .left-block {
-        display: flex;
-        flex-direction: column;
-        width: 50%  !important;
-    }
-
-    .right-block {
-        display: flex;
-        align-items: center;
-        gap: 30px;
-    }
-
-    .add-input .btn {
-        background-color: transparent;
-        color: #1A57E8;
-        padding: 8px 25px;
-        border-radius: 999px;
-        border: 1px solid #1A57E8;
-        font-weight: 600;
-        cursor: pointer;
-
-    }
-
-    .date-profile{
-        display: inline-flex;
-        margin-top: 2%;
-        
-        gap: 4px;
-    }
-
-    .date-profile span{
-        font-size: 11px;
-    }
-
-
-    .date-profile p {
-        font-size: 12px;
-        font: 800 !important;
-        color: black;
-    }
-
-    .notes-button {
-        all: unset;
-        display: flex;
-        justify-content: flex-start;
-    }
-
-
-    .file-actions button {
-        padding: 12px 30px !important;
-        border-radius: 5px;
-    }
-
-
-    .row-remover{
-        all: unset;
-        background-color: #FF000099;
-        border-radius: 50%;
-        padding: 10px;
-        color: white;
-    }
-
-    .row-remover span{
-        color: white;
-    }
-
-    .row-remover:hover{
-        background-color: #FF000099;
-    }
-
-    .list{
-        display: flex;
-        justify-content: space-between; 
-        gap: 10px;
-        padding: 30px 5px !important;
-        width: 97%;   
-    }
-    
-    .border{
-        border: 1px solid #CEDDFF;
-        margin-top: 4% !important;
-    }
-
-    .save{
-        margin-top: 2% !important;
-        margin-right: 2% !important;
-    }
-    
-    .save .file-actions button{
-        padding: 9px 55px !important;
-    }
-
-
-    .clear{
-        all: unset;
-        display: flex ;
-    }
-
-    .add{
-        margin-left: 0;
-    }
-
-    
-
-   .add div {
-    margin-left: 0 !important;
-    width: 100%;
-    text-decoration: none;
-}
-
-  .add div span{
-        margin-left: 36px !important;
-        color: black;
-    }
-
-    .plus{
-        padding : 2px 7px;
-        background-color: white;
-        border: 1.5px solid black;
-        border-radius: 50%;
-        color: black;
-        text-decoration: none;
-        text-align: center;
-        gap: 10px !important;
-        cursor: pointer;
-    }
-
-    .obs-comment-section{
-        margin-left: 31px !important;
-    }
-
-    .obs-comment-section div textarea{
-        width: 60% !important;
-        padding: 10px ;
-        border-radius: 7px;
-        margin-top: 2% !important;
-    }
-
-    .block{
-        background-color: #1A57E826;
-        padding: 2px 1px;
-    }
-
-    @media (min-width: 768px) and (max-width: 1024px) {
-          .gallery{
-            margin-top: 5%;
-          }
-
-          .left-block {
-        display: flex;
-        flex-direction: row;
-        width: 30%  !important;
-    }
-
-
-          .date-profile{
-        display: inline-flex;
-        margin-top: 2%;
-        margin-left: 4%;
-        gap: 4px;
-    }
-
-
-    .date-profile p {
-        font-size: 14px;
-        font: 800 !important;
-        color: black;
-    }
-
-    .date-profile span{
-        font-size: 13px;
-    }
-
-    }
-
-    @media (min-width: 1025px) {
-        .gallery{
-            margin-top:4%;
-          }
-
-          .left-block {
-        display: flex;
-        flex-direction: row;
-        width: 30%  !important;
-    }
-
-
-          .date-profile{
-        display: inline-flex;
-        margin-top: 2%;
-        margin-left: 4%;
-        gap: 4px;
-    }
-
-
-    .date-profile p {
-        font-size: 16px;
-        font: 800 !important;
-        color: black;
-    }
-
-    .date-profile span{
-        font-size: 15px;
-    }
-
-    } */
-
-    /* .add a span{
-        margin-left: 0 ;
-    } */ -->
-<!-- </style> -->
-
-
-
-
-
-
-<!-- <div id="messages" class="messages">
-    <div class="info-message" ng-show="success">
-        <p>{{::'FILE_UPLOAD_SUCCESS_MESSAGE'|translate }}</p>
-    </div>
-    <div class="error-message" ng-show="orientation_warning">
-        <p><i class="fa fa-exclamation-sign"></i>{{::'PLEASE_ROTATE_DEVICE_MESSAGE'|translate }}</p>
-    </div>
-</div>
-
-<div ng-if="toggleGallery" class="gallery">
-    <ul class="doc-upload-accordion" bm-gallery patient="patient" access-impression="false">
-        <li id="newVisit">
-            <div class="visit-header">
-                <h4><b>Visit</b>: New</h4>
-                <span ng-click="resetCurrentVisit(newVisit)">
-                    <span class="custom-toggle-icon" ng-hide="isCurrentVisit(newVisit)">
-                        <svg class="arrow-svg" viewBox="0 0 24 24">
-                            <path d="M8 10l4 4 4-4" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                    <span class="custom-toggle-icon" ng-if="isCurrentVisit(newVisit)">
-                        <svg class="arrow-svg flipped" viewBox="0 0 24 24">
-                            <path d="M8 10l4 4 4-4" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                </span>
-            </div>
-
-            <div ng-show="isCurrentVisit(newVisit)" class="visit-content">
-                <form name="newVisitForm" single-submit="save(newVisit)">
-                    <p class="caution" ng-show="newVisitForm.startDate.$error.overlap">
-                        <i class="fa fa-exclamation-sign small"></i>
-                        <span>{{::'VISIT_EXIST_LABEL'|translate }}</span>
-                    </p>
-
-                    <p class="caution" ng-show="newVisitForm.startDate.$error.future">
-                        <i class="fa fa-exclamation-sign small"></i>
-                        <span>{{::'VISIT_NOT_IN_FUTURE_LABEL'|translate }}</span>
-                    </p>
-
-                    <p class="caution" ng-show="newVisitForm.startDate.$error.dateSequence">
-                        <i class="fa fa-exclamation-sign small"></i>
-                        <span>{{::'START_NOT_GREATER_THAN_END_DATE_LABEL'|translate }}</span>
-                    </p>
-
-                    <div class="form-row">
-                        <div class="form-field">
-                            <div>
-                                <label><strong>{{::'VISIT_TYPE_LABEL'|translate }}</strong>
-                                    <span class="asterick">*</span>
-                                </label>
-                            </div>
-                            <div class="field-value">
-                                <select ng-model="newVisit.visitType" ng-options="vt.display for vt in visitTypes"
-                                    ng-required="newVisit.hasFiles()" class="select">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-field">
-                            <div>
-                                <label class="form-attribute"><strong>{{::'START_DATE_LABEL'|translate }}</strong>
-                                    <span class="asterick">*</span>
-                                </label>
-                            </div>
-                            <div class="field-value">
-                                <input name="startDate" type="date" ng-model="newVisit.startDatetime"
-                                    dependent-model="newVisit.stopDatetime" date-validator
-                                    ng-blur="setDefaultEndDate(newVisit)" ng-required="newVisit.files.length >0"
-                                    class="field-value" placeholder="yyyy-mm-dd" />
-                            </div>
-                        </div>
-                        <div class="form-field">
-                            <div>
-                                <label class="form-attribute"><strong>{{::'END_DATE_LABEL'|translate }}</strong></label>
-                            </div>
-                            <div class="field-value">
-                                <input name="endDate" type="date" ng-model="newVisit.stopDatetime"
-                                    dependent-model="newVisit.startDatetime" date-validator class="field-value"
-                                    placeholder="yyyy-mm-dd">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="upload-inline-buttons">
-                        <input id="file-browse" type="file" multiple name="image" accept="application/pdf, image/*"
-                            capture="camera" file-upload visit="newVisit" on-select="onSelect">
-                        <label for="file-browse" class="btn btn-primary">
-                            {{::'Upload'|translate }}</label>
-                        <button type="submit"
-                            ng-disabled="!newVisit.hasFiles() || newVisitForm.$invalid || newVisit.hasErrors()"
-                            class="btn btn-primary">
-                            {{::'Save'|translate }}
-                        </button>
-                    </div>
-
-                </form>
-                
-                <div class="border"></div>
-
-                <form>
-                    <ul class="files">
-                        <li class="" ng-repeat="file in newVisit.files | reverse">
-                            <div class="list">
-                            <div class="file">
-                                <a class="pdf-link fl" ng-if="isPdf(file)" ng-href="{{file.encodedValue}}"
-                                    target="_blank">
-                                    <i class="fa fa-file-pdf-o"></i>
-                                </a>
-                                <img ng-if="!isPdf(file)" bm-gallery-item visit-uuid="'new'" visit-order="0"
-                                    image="file" index="{{file.imageIndex}}" ng-src="{{file.thumbnail}}" width="100">
-                                <select id="{{'file'+$index}}" required ng-readonly="!canDeleteFile(file)"
-                                            class="concept-name" ng-class="{saved: visit.isSaved(file)}"
-                                            response-map="getDataResults"
-                                            blur-on-select="true" ng-blur="visit.markAsUpdated()"
-                                            ng-model="file.concept.editableName" ng-change="onConceptSelected(file)"
-                                            ng-init="toInitFileConcept(file)" ng-disabled="file.voided">
-                                            <option ng-repeat="c in fileTypeConcepts" value="{{c.concept.name}}"
-                                                ng-selected="file.concept.editableName==c.concept.name">
-                                                {{c.concept.name}}</option>
-                                        </select>
-
-                            </div>
-                        
-           
-                        
-                            <div>
-                                <button type="button" ng-click="newVisit.removeNewAddedFile(file)"
-                                    class="row-remover"><span class="fa fa-remove"></span></button>
-                            </div>
-                            </div>
-
-                            
-                        <br />
-                         <div class="add">
-                            <div type="button" toggle="show" class="comment-toggle fr" tabindex="-1"
-                                ng-class="{'has-notes': file.comment}">
-                                <span><i class="plus">+</i> Add Notes</span>
-                                
-                         </div> <br />
-
-                            <div ng-if="show" class="obs-comment-section">
-                                <label class="control-label"></label>
-                                <div class="field-value" ng-if="show">
-                                    <textarea class="obs-comment-section" maxlength="255" ng-model="file.comment"
-                                        ng-change="enableSaveButtonOnCommentChange(file, visit)"
-                                        placeholder="{{ 'NOTES_LABEL'|translate }}" msd-elastic>
-                                            </textarea>
-                                </div>
-                            </div>
-
-                            </div>
-
-
-
-                        </li>
-
-
-                    </ul>
-                </form>
-
-            </div>
-        </li> -->
-
-        <!-- ---------------------------------------------------------------------------------------------------------- -->
-
-        <!-- <li ng-repeat="visit in visits">
-            <div class="prescription-header"> -->
-                <!-- LEFT CONTENT -->
-                <!-- <div class="left-block">
-                    <h4><b>Visit</b>:</h4>
-                    
-                    <span class="date-profile">
-                        <p>{{::'VISIT_FROM_LABEL'|translate}}</p>
-                        <span>{{visit.startDatetime | bahmniDate}}</span>
-
-                        <p ng-if="visit.stopDatetime">{{::'VISIT_TO_LABEL'|translate}}</p>
-                        <span ng-if="visit.stopDatetime">{{visit.stopDatetime | bahmniDate}}</span>
-                    </span>
-                    
-
-                </div> -->
-
-                <!-- RIGHT CONTENT -->
-                <!-- <div class="right-block">
-                    <div class="add-input">
-                        <input id="file-browse-{{visit.uuid}}" type="file" multiple name="image-document-upload"
-                            accept="application/pdf,image/*" capture="camera" file-upload visit="visit"
-                            on-select="onSelect">
-                        <label class="placeholder btn" for="file-browse-{{visit.uuid}}">+ Add</label>
-                    </div>
-
-
-                    <span ng-click="resetCurrentVisit(visit)" class="menu">
-                        <span class="custom-toggle-icon" ng-hide="isCurrentVisit(visit)">
-                            <svg class="arrow-svg" viewBox="0 0 24 24">
-                                <path d="M8 10l4 4 4-4" fill="none" stroke="white" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </span>
-                        <span class="custom-toggle-icon" ng-if="isCurrentVisit(visit)">
-                            <svg class="arrow-svg flipped" viewBox="0 0 24 24">
-                                <path d="M8 10l4 4 4-4" fill="none" stroke="white" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </span>
-                    </span>
-                </div>
-
-
-            </div>
-
-            <div id="visit-content" class="visit-content" ng-show="isCurrentVisit(visit)">
-                <form name="{{'visit' + $index}}" single-submit="save(visit)" ng-disabled="!visit.changed">
-                    <ul>
-                        <li>
-                            <ul class="files">
-
-                                <li ng-repeat="file in visit.files | reverse" class="list">
-                                   
-                                    <div class="file">
-                                        <a class="pdf-link fl" ng-if="isPdf(file)" ng-href="{{file.encodedValue}}"
-                                            target="_blank">
-                                            <i class="fa fa-file-pdf-o"></i>
-                                        </a>
-                                        <img ng-if="!isPdf(file)" bm-gallery-item index="{{file.imageIndex}}"
-                                            visit-uuid="visit.uuid" visit-order="{{$parent.$index+1}}" image="file"
-                                            ng-src="{{file.thumbnail}}" width="100"
-                                            ng-class="{true:'transparent', false:'opaque'}[file.voided]" />
-                                        <select id="{{'file'+$index}}" required ng-readonly="!canDeleteFile(file)"
-                                            class="concept-name" ng-class="{saved: visit.isSaved(file)}"
-                                            response-map="getDataResults" blur-on-select="true"
-                                            ng-blur="visit.markAsUpdated()" ng-model="file.concept.editableName"
-                                            ng-change="onConceptSelected(file)" ng-init="toInitFileConcept(file)"
-                                            ng-disabled="file.voided">
-                                            <option ng-repeat="c in fileTypeConcepts" value="{{c.concept.name}}"
-                                                ng-selected="file.concept.editableName==c.concept.name">
-                                                {{c.concept.name}}</option>
-                                        </select>
-
-
-
-                                    </div>
-
-                                     <div class="file-remove">
-                                        <button type="button" id="remove-image{{$index}}"
-                                            ng-click="visit.removeFile(file)" ng-if="canDeleteFile(file)"
-                                            class="row-remover"><span
-                                                ng-class="{'fa fa-remove': !file.voided, 'fa fa-undo': file.voided }"></span>
-                                        </button>
-                                    </div>
-                                    
-                                   
-                                </li>
-
-                                <li class="save">
-                                    <div class="file-actions">
-                                        <button type="submit" ng-disabled="!visit.changed || visit.hasErrors()"
-                                            class="btn btn-primary">
-                                            {{::'Save'|translate }}
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-        </li>
-        <div class="block"></div>
-    </ul>
-
-    
-</div> -->
-
-
-<style>
-    .document-upload .main h5 {
-    height: 40px;
-    line-height: 40px;
-    font-size: 14px;
-    background: rgba(26, 87, 232, 0.15);
-    padding: 0 5px;
-    margin: 0;
-    cursor: pointer;
-}
-    .document-upload .main .visit-content .btn.btn-primary {
-    background: rgba(21, 112, 239, 1);
-    color: #FFFFFF;
-    margin-top: 0px;
-}
-    .document-upload .main .visit-content label.btn {
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    background: #1A57E8;
-    color: #FFFFFF;
-    cursor: pointer;
-    padding: 10px 50px !important;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-}
-.document-upload .main .visit-content .btn {
-    padding: 5px 30px;
-}
-.row-remover {
-    border: none ;
-    border-radius: 0px;
-    float: right;
-    padding: 0px 0px;
-    margin-top: 0px;
-    margin-right: 0px;
-}
-button {
-    border-radius: 0px;
-    background: none ;
-    background-color: none;
-    border: none;
-    padding: 0px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: #363463;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-}
-.document-upload .main .visit-content .files > li img {
-    float: left;
-    width: 50px;
-    height: 50px;
-    background: none;
-    padding: 0px;
-    margin-right: 10px;
-}
-.comment-toggle {
-    border: 1px solid #1A57E8;
-    border-radius: 34px;
-    padding: 8px 20px 8px 20px;
-    color: blue;
-}
-button:hover {
-    background: none;
-}
-.row-remover:hover {
-    background: none;
-}
-.document-upload .main .visit-content .files > li img {
-    float: left;
-    width: 50px;
-    height: 50px;
-    background: none;
-    padding: 0px;
-    margin-right: 0px;
-}
-.document-upload .main .visit-content .files > li .concept-name {
-    min-width: 200px;
-    margin-left: 20px;
-}
-.document-upload .main .visit-content .files > li .placeholder {
-    width: auto;
-    height: auto;
-    float: left;
-    margin: 5px 15px 5px 2px;
-    text-align: center;
-}
-body {
-    font-family: sans-serif, OpenSans, Arial, sans-serif, Arial;
-    -webkit-font-smoothing: subpixel-antialiased;
-    background: #f4f7fa;
-    color: #363463;
-    font-size: 16px;
-    line-height: 1.1em;
-    margin: 0 auto;
-}
-</style>
-
 <div id="messages" class="messages">
     <div class="info-message" ng-show="success"><p>{{::'FILE_UPLOAD_SUCCESS_MESSAGE'|translate }}</p></div>
     <div class="error-message" ng-show="orientation_warning"><p><i class="fa fa-exclamation-sign"></i>{{::'PLEASE_ROTATE_DEVICE_MESSAGE'|translate }}</p></div>
 </div>
 <div ng-if="toggleGallery">
     <ul class="doc-upload-accordion" bm-gallery patient="patient" access-impression="false">
-        <div style="margin-bottom: 20px;border-radius: 8px;border: 1px solid #ccc;overflow: hidden;">
         <li id="newVisit">
             <h5 ng-click="resetCurrentVisit(newVisit)">
-                <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+                <i ng-hide="isCurrentVisit(newVisit)" class="fa fa-plus-circle state"></i>
+                <i ng-if="isCurrentVisit(newVisit)" class="fa fa-minus-circle state"></i>
                 {{::'NEW_VISIT_LABEL'|translate }}
-                <img ng-hide="isCurrentVisit(newVisit)" src="/bahmni/images/Parkdown.png" alt="down" style="height: 18px;width: 18px;background: #638FFC;border-radius: 24px;align-items: center;">
-                <img ng-if="isCurrentVisit(newVisit)" src="/bahmni/images/Parkup.png" alt="down" style="height: 18px;width: 18px;background: #638FFC;border-radius: 24px;align-items: center;">
-                </div>
             </h5>
 
             <div ng-show="isCurrentVisit(newVisit)" class="visit-content">
@@ -823,7 +27,7 @@ body {
                         <i class="fa fa-exclamation-sign small"></i>
                         <span>{{::'START_NOT_GREATER_THAN_END_DATE_LABEL'|translate }}</span>
                     </p>
-                    <div style="display: flex;flex-direction: row;gap: 10%;margin-bottom: 30px;">
+
                     <div class="form-field">
                         <div>
                             <label><strong>{{::'VISIT_TYPE_LABEL'|translate }}</strong>
@@ -860,15 +64,15 @@ body {
                                    placeholder="yyyy-mm-dd">
                         </div>
                     </div>
-                </div>
-                    <div class="upload-inline-buttons" style="display: flex;flex-direction: row;justify-content: flex-end; gap: 15px;margin-bottom: 20px;">
+                    <div class="upload-inline-buttons">
                         <input id="file-browse" type="file" multiple name="image" accept="application/pdf, image/*"
                                capture="camera" file-upload visit="newVisit" on-select="onSelect">
-                        <label for="file-browse" class="btn btn-primary"> {{::'SCAN_LABEL'|translate }}</label>
+                        <label for="file-browse" class="btn btn-primary"><i
+                                class="fa fa-camera fa fa-white"></i> {{::'SCAN_LABEL'|translate }}</label>
                         <button type="submit"
                                 ng-disabled="!newVisit.hasFiles() || newVisitForm.$invalid || newVisit.hasErrors()"
                                 class="btn btn-primary">
-                             {{::'SAVE_LABEL'|translate }}
+                            <i class="fa fa-save fa fa-white"></i> {{::'SAVE_LABEL'|translate }}
                         </button>
                     </div>
                 </form>
@@ -892,7 +96,15 @@ body {
                                         ng-selected="file.concept.editableName==c.concept.name">
                                         {{c.concept.name}}</option>
                                 </select>
-                                <button type="button" toggle="show" class="comment-toggle fr" tabindex="-1" ng-class="{'has-notes': file.comment}"> + Add Notes </button>
+                                <button type="button" toggle="show"
+                                        class="comment-toggle fr" tabindex="-1" ng-class="{'has-notes': file.comment}">
+                                    <i class="fa fa-file-o">
+                                        <i class="fa fa-plus-circle"></i>
+                                        <i class="fa fa-minus-circle"></i>
+                                    </i>
+                                    <i class="fa fa-file-text-o"></i>
+                                </button>
+
                                 <div ng-if="show" class="obs-comment-section" >
                                     <label class="control-label"></label>
                                     <div class="field-value" ng-if="show">
@@ -904,7 +116,8 @@ body {
                             </div>
                             <div>
                                 <button type="button" ng-click="newVisit.removeNewAddedFile(file)"
-                                        class="row-remover"><img src="/bahmni/images/Crossicon.png" alt="delete" style="width: 28px;height: 28px;margin-top: 10px;"></button>
+                                        class="row-remover"><span
+                                        class="fa fa-remove"></span></button>
                             </div>
                         </li>
                     </ul>
@@ -912,32 +125,42 @@ body {
 
             </div>
         </li>
-        </div>
-        <div style="margin-bottom: 20px;border-radius: 8px;border: 1px solid #ccc;overflow: hidden;">
+
         <li ng-repeat="visit in visits">
             <h5 ng-click="resetCurrentVisit(visit)">
-            <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                <div>
+                <i ng-hide="isCurrentVisit(visit)" class="fa fa-plus-circle state"></i>
+                <i ng-if="isCurrentVisit(visit)" class="fa fa-minus-circle state"></i>
                 {{::'VISIT_LABEL'|translate }}
                 <small>{{::'VISIT_FROM_LABEL'|translate }}</small>
                 <span>{{visit.startDatetime | bahmniDate}}</span>
                 <small ng-if="visit.stopDatetime">{{::'VISIT_TO_LABEL'|translate }}</small>
                 <span ng-if="visit.stopDatetime">{{visit.stopDatetime | bahmniDate}}</span>
-                </div>
-                <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;gap: 15px;">
-                <span ng-if="visit.hasFiles()" class="containsImageMarker" title="Visit has images"><img src="/bahmni/images/Doc.png" alt="doc" style="height: 18px;width: 18px"></span>
-                <span ng-if="!visit.stopDatetime" class="currentVisitMarker" title="Current Visit"></span>
-                 
-                <img ng-hide="isCurrentVisit(newVisit)" src="/bahmni/images/Parkdown.png" alt="down" style="height: 18px;width: 18px;background: #638FFC;border-radius: 24px;align-items: center;">
-                <img ng-if="isCurrentVisit(newVisit)" src="/bahmni/images/Parkup.png" alt="down" style="height: 18px;width: 18px;background: #638FFC;border-radius: 24px;align-items: center;">
-                </div>
-            </div>
+                <span ng-if="visit.hasFiles()" class="containsImageMarker" title="Visit has images"><i
+                        class="fa fa-picture-o"></i></span>
+                <span ng-if="!visit.stopDatetime" class="currentVisitMarker" title="Current Visit"><i
+                        class="fa fa-star"></i></span>
             </h5>
             <div id="visit-content" class="visit-content" ng-show="isCurrentVisit(visit)">
                 <form name="{{'visit' + $index}}" single-submit="save(visit)" ng-disabled="!visit.changed">
                     <ul>
                         <li>
                             <ul class="files">
+                                <li>
+                                    <div class="file-actions">
+                                        <button type="submit" ng-disabled="!visit.changed || visit.hasErrors()"
+                                                class="btn btn-primary">
+                                            <i class="fa fa-save fa fa-white"></i> {{::'SAVE_LABEL'|translate }}
+                                        </button>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <input id="file-browse-{{visit.uuid}}" type="file" multiple name="image-document-upload"
+                                           accept="application/pdf,image/*" capture="camera" file-upload visit="visit"
+                                           on-select="onSelect">
+                                    <label class="placeholder btn" for="file-browse-{{visit.uuid}}"><i
+                                            class="fa fa-plus needsclick"></i></label>
+                                </li>
                                 <li ng-repeat="file in visit.files | reverse">
                                     <div class="file">
                                         <a class="pdf-link fl" ng-if="isPdf(file)" ng-href="{{file.encodedValue}}"
@@ -958,7 +181,15 @@ body {
                                                 ng-selected="file.concept.editableName==c.concept.name">
                                                 {{c.concept.name}}</option>
                                         </select>
-                                        <button type="button" toggle="show" class="comment-toggle fr" tabindex="-1" ng-class="{'has-notes': file.comment}"> + Add Notes </button>
+                                        <button type="button" toggle="show"
+                                                class="comment-toggle fr" tabindex="-1" ng-class="{'has-notes': file.comment}">
+                                            <i class="fa fa-file-o">
+                                                <i class="fa fa-plus-circle"></i>
+                                                <i class="fa fa-minus-circle"></i>
+                                            </i>
+                                            <i class="fa fa-file-text-o"></i>
+                                        </button>
+
                                         <div ng-if="show" class="obs-comment-section" >
                                             <label class="control-label"></label>
                                             <div class="field-value" ng-if="show">
@@ -970,25 +201,9 @@ body {
                                     </div>
                                     <div class="file-remove">
                                         <button type="button" id="remove-image{{$index}}"
-                                        ng-click="visit.removeFile(file)" ng-if="canDeleteFile(file)"
-                                        class="row-remover">
-                                    <span>
-                                    <img ng-class="{'hidden': file.voided}" src="/bahmni/images/Crossicon2.png" alt="Remove" style="height: 28px; width: 28px;">
-                                    <img ng-class="{'hidden': !file.voided}" src="/bahmni/images/Reloadicon.png" alt="Undo" style="height: 28px; width: 28px;">
-                                    </span>
-                                    </button>
-                                    </div>
-                                </li>
-                                <li>
-                                    <input id="file-browse-{{visit.uuid}}" type="file" multiple name="image-document-upload" accept="application/pdf,image/*" capture="camera" file-upload visit="visit" on-select="onSelect">
-                                    <label class="placeholder btn" for="file-browse-{{visit.uuid}}">
-                                    <img src="/bahmni/images/Uploaddoc.png" alt="Upload" style="height: 18px; width: 18px; vertical-align: middle;margin-right: 15px;"> Upload Files </label>
-                                </li>
-                                <li>
-                                    <div class="file-actions">
-                                        <button type="submit" ng-disabled="!visit.changed || visit.hasErrors()"
-                                                class="btn btn-primary">
-                                             {{::'SAVE_LABEL'|translate }}
+                                                ng-click="visit.removeFile(file)" ng-if="canDeleteFile(file)"
+                                                class="row-remover"><span
+                                                ng-class="{'fa fa-remove': !file.voided, 'fa fa-undo': file.voided }"></span>
                                         </button>
                                     </div>
                                 </li>
@@ -998,6 +213,5 @@ body {
                 </form>
             </div>
         </li>
-        </div>
     </ul>
 </div>

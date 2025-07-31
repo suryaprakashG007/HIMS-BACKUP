@@ -26,9 +26,9 @@ angular.module('consultation')
                 state: "search.patientsearch",
                 accessKey: "p",
                 id: "patients-link",
-                image: "../images/Clinichome.png"
+                icon: "fa-users"
             };
-            var homeBackLink = {label: "", url: "../home/index.html", accessKey: "h", image: "/bahmni/images/Homeicon.png"};
+            var homeBackLink = {label: "", url: "../home/index.html", accessKey: "h", icon: "fa-home"};
 
         // @if DEBUG='production'
             $compileProvider.debugInfoEnabled(false);

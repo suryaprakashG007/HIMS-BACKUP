@@ -1,9 +1,7 @@
-
-
 <div ng-controller="PatientDashboardDiagnosisController" class="dashboard-diagnosis-section">
     <h2 ng-click="openSummaryDialog()" class="section-title has-link">
         <span class="title-link"> {{::section | titleTranslate}} </span>
-        <img src="../images/Roundright.png" alt="Open in new window" class="external-link-img" />
+        <i class="fa fa-external-link"></i>
     </h2>
 <bahmni-diagnosis patient-uuid="::patient.uuid" config="::section" show-latest-diagnosis="false"
                   show-ruled-out-diagnoses="::section.showRuledOutDiagnoses"

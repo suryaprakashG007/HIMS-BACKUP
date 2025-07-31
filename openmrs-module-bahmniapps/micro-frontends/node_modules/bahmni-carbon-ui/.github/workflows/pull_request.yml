@@ -1,0 +1,29 @@
+name: Pull Request on Main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  PR:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Check out repository code
+        uses: actions/checkout@v3
+      - name: 📦 Install dependencies
+        uses: ./.github/actions/install-dependencies
+      - id: versionCheck
+        name: Check if version has been updated
+        uses: EndBug/version-check@v2
+        with:
+          file-url: https://unpkg.com/bahmni-carbon-ui@latest/package.json
+          static-checking: localIsNew
+      - name: Version guard
+        if: steps.versionCheck.outputs.changed == 'false'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('No version change detected. You should run `yarn bump:<patch|minor|major>` to bump the version before raising PR to main')
+      - name: 🧪 Run tests
+        run: yarn test

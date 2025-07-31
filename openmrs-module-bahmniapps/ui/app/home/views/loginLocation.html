@@ -1,190 +1,48 @@
-<style>
-/* Reset & base */
-body, html {
-margin: 0;
-padding: 0;
-font-family: Arial, sans-serif;
-}
- 
-select,
-input {
-width: 100%;
-height: 48px;
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 8px;
-font-size: 14px;
-box-sizing: border-box;
-}
- 
-/* Prevent red border on invalid select */
-select.ng-invalid.ng-touched,
-select.ng-invalid.ng-dirty {
-border: 1px solid #ccc !important;
-}
- 
-/* Container and card */
-.login-container {
-display: flex;
-align-items: center;
-justify-content: center;
-min-height: 100vh;
-width: 100vw;
-background-color: #050A24;
-background-image:
-radial-gradient(500px circle at bottom left, rgba(45, 85, 251, 0.3), transparent 70%),
-radial-gradient(500px circle at top right, rgba(45, 85, 251, 0.3), transparent 70%);
-background-repeat: no-repeat;
-background-size: cover;/* Ensures image covers entire container */
-box-sizing: border-box;
-padding: 16px;
-}
- 
-.login-card {
-background: #fff;
-padding: 32px;
-border-radius: 12px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-width: 100%;
-max-width: 405px;
-box-sizing: border-box;
-}
- 
-/* Header */
-.login-header {
-text-align: center;
-margin-bottom: 24px;
-font-size: 24px;
-font-weight: 400;
-color: #000000;
-}
- 
-/* Form field */
-.form-field {
-margin-bottom: 16px;
-}
- 
-/* Label */
-label {
-font-size: 14px;
-font-weight: 500;
-margin-bottom: 8px;
-display: block;
-text-align: left;
-color: #344054;
-}
- 
-/* Button */
-.login-button,
-button.confirm {
-height: 48px;
-width: 100%;
-background: #1570EF !important;
-color: white;
-font-size: 16px;
-font-weight: 500;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-margin-top: 8px;
-max-width: 405px;
-}
- 
-button:hover,
-button.confirm:hover {
-background: #1570EF !important;
-color: white;
-}
- 
-/* Bottom logos */
-.bottom-logos {
-margin-top: 20px;
-text-align: center;
-}
- 
-.bottom-logos img {
-max-height: 40px;
-margin: 0 5px;
-}
- 
-/* Responsive Styles */
-@media (max-width: 600px) {
-.login-card {
-padding: 24px;
-}
- 
-.login-header {
-font-size: 20px;
-}
- 
-.login-button,
-button.confirm {
-font-size: 15px;
-}
-}
- 
-@media (max-width: 400px) {
-.login-card {
-padding: 20px;
-}
- 
-label,
-input,
-select {
-font-size: 13px;
-}
- 
-.login-button,
-button.confirm {
-font-size: 14px;
-}
-}
-</style>
- 
-<div ng-hide="showOTP" class="login-container" style="display: flex;flex-direction: column;">
-    <div>
-            <img src="/bahmni/images/MGlogo2.png" alt="login" style="height: 70px;width: 400px;margin-bottom: 50px;">
+<div class="clint-logo-wrapper">
+    <img class="implementor-logo" src={{logo}} >
+    <span ng-if="titleText" class="title_text"> {{'LOGIN_LOCATION_PAGE_TITLE_TEXT' | translate }} </span>
+</div>
+
+<div class="login">
+    <header class="reg-header">
+        <div>{{'LOGIN_LOCATION_PAGE_TITLE_TEXT' | translate}}</div>
+    </header>
+    <form ng-submit="updateSessionLocation()" name="loginLocationForm" bm-form autofillable="true">
+        <div class="login-body">
+            <div class="form-field">
+                <div class="field-attribute">
+                    <label for="location">
+                        {{'LOGIN_LABEL_LOCATION_KEY' | translate}} <span class="asterick">*</span>
+                    </label>
+                </div>
+                <div class="field-value">
+                    <select id="location" ng-model="loginInfo.currentLocation"
+                            ng-options="item as (item.display | translate) for item in locations | orderBy:'display'" required>
+                        <option value="">{{'LOGIN_LABEL_SELECT_LOCATION_KEY' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="confirm">{{'LOGIN_LOCATION_SELECTION_LABEL_KEY' | translate}}</button>
+            </div>
         </div>
-<div class="login-card">
-<!-- Fixed Header Text -->
-<div class="login-header">
-<b>Select login location</b>
+
+    </form>
+
+    <div class="warning-message">
+        <span ng-if="warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{warning}}</span>
+        <p>{{warningMessage | translate :timeZoneObject}} </p>
+    </div>
+
+    <div ng-show="bottomLogos" class="bottom-logos-wrapper">
+        <img ng-repeat="logo in bottomLogos" id="bottom-logos-image" src={{logo}}>
+    </div>
+
 </div>
- 
-<form ng-submit="updateSessionLocation()" name="loginLocationForm" bm-form>
-<div class="login-body">
-<div class="form-field">
-<label for="location">
-{{'LOGIN_LABEL_LOCATION_KEY' | translate}} <span style="color:red;">*</span>
-</label>
-<select id="location"
-name="location"
-ng-model="loginInfo.currentLocation"
-ng-class="{'no-border': loginInfo.currentLocation}"
-ng-options="item as (item.display | translate) for item in locations | orderBy:'display'"
-ng-required="true"
-style="width:100%; height:45px; padding:10px; border-radius:8px; font-size:14px;">
-<option value="">{{'LOGIN_LABEL_SELECT_LOCATION_KEY' | translate}}</option>
-</select>
-</div>
- 
-<div class="form-footer">
-<button type="submit" class="confirm">{{'LOGIN_LOCATION_SELECTION_LABEL_KEY' | translate}}</button>
-</div>
-</div>
-</form>
- 
-<!-- Warning -->
-<div class="warning-section" ng-if="warning || warningMessage">
-<span ng-if="warning">
-<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{warning}}
-</span>
-<p>{{warningMessage | translate :timeZoneObject}}</p>
-</div>
- 
-<!-- Bottom Logos -->
-<div ng-show="bottomLogos" class="bottom-logos">
-<img ng-repeat="logo in bottomLogos" ng-src="{{logo}}" alt="logo">
-</div>
-</div>
+
+
+<div class="power-by">
+    <img src="./../images/bahmniLogoFull.png" alt="Bahmni" />
+    <a href={{helpLink}}> Bahmni Help</a>
 </div>

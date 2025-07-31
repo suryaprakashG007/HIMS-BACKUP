@@ -1,329 +1,49 @@
-<style>
+<section class="reg-search-wrapper">
+    <section class="reg-search">
+        <article class="search-seperator-l" ng-if="::patientIdentifierSearchConfig.show">
+            <form name="searchByIdForm" ng-submit="searchById()" class="simple-form-ui clearfix" >
+                    <label for="registrationNumber"><strong style="padding-left: 5px;">{{ ::'REGISTRATION_LABEL_PATIENT_ID' | translate}}</strong></label>
+                    <div class="search-patient-id fl">
+                        <input tabindex="2" class="fl" type="text" id="registrationNumber"
+                        ng-model="searchParameters.registrationNumber" focus-me="true"
+                               placeholder="{{ ::'REGISTRATION_LABEL_ENTER_ID' | translate}}">
+                        <div class="reg-srch-btn fl">
+                            <button tabindex="3" type="submit" ng-disabled="!searchParameters.registrationNumber" >{{ ::'REGISTRATION_LABEL_SEARCH' | translate}}</button>
+                        </div>
+                    </div>
 
-/* line 177, bahmni-helper/_base.scss */
-table {
-    border-collapse: separate; /* Allows rounded corners */
-    border-spacing: 0;         /* No space between cells */
-    width: 100%;
-    font-family: 'DM Sans', Verdana, sans-serif;
-    border: 3px solid #ddd;    /* Outer border */
-    border-radius: 10px;        /* Rounded corners for outer border */
-    overflow: hidden;          /* Ensures content fits within rounded corners */
-}
-table thead tr th {
-    background: #1A57E826;
-    padding: 7px;
-    font-weight: bold;
-    font-family: OpenSans, Arial, sans-serif;
-}
-/* line 180, bahmni-helper/_base.scss */
-table th, table td {
-    padding: 5px 10px;
-    height: 30px;
-    border-bottom: 1px solid #ddd; /* Horizontal line only */
-}
-/* line 185, bahmni-helper/_base.scss */
-table tr {
-  border: 1px solid #EEE;
-}
-/* line 189, bahmni-helper/_base.scss */
-table tr:nth-child(even) {
-  background: white;
-}
-/* line 193, bahmni-helper/_base.scss */
-table tr:nth-child(odd) {
-  background: white;
-}
-/* line 197, bahmni-helper/_base.scss */
-table tr.hover {
-  background: #75b2f0;
-  color: white;
-  cursor: pointer;
-}
-/* line 203, bahmni-helper/_base.scss */
-table tr.selected {
-  background: #007FFF;
-  color: white;
-}
-/* line 207, bahmni-helper/_base.scss */
-table tr.selected a {
-  color: white;
-}
-/* line 212, bahmni-helper/_base.scss */
-table thead th {
-  border-bottom: 1px solid #ddd;
-  background: #f3f3f3;
-  width: auto;
-  text-align: left;
-  word-break: normal;
-  font-weight: normal;
-  font-family: "OpenSansBold";
-}
- 
+            </form>
+        </article>
+        <article class="search-seperator-r">
+            <form name="searchByNameForm" ng-submit="searchPatients()" class="simple-form-ui" >
 
-.reg-search-wrapper .reg-search .search-seperator-l {
-  width: 30.5%;
-  border-right: none ! important;
-  margin: 0 1.04167%;
-  float: left;
-}
+                <article class="fl">
+                    <label for="name"><strong>{{ ::'REGISTRATION_LABEL_NAME' | translate}}</strong></label>
+                    <input tabindex="4" type="text" id="name" ng-model="searchParameters.name" placeholder="{{ ::'REGISTRATION_LABEL_ENTER_NAME' | translate}}">
+                </article>
+                <article class="fl" ng-if="::customAttributesSearchConfig.show">
+                    <label for="name"><strong>{{::customAttributesSearchConfig.label | translate}}</strong></label>
+                    <input tabindex="5" type="text" id="customAttribute" ng-model="searchParameters.customAttribute" placeholder="{{::customAttributesSearchConfig.placeholder | translate}}">
+                </article>
+                <article class="fl" ng-if="::addressSearchConfig.show">
+                    <label for="name"><strong>{{::addressSearchConfig.label | translate}}</strong></label>
+                    <input tabindex="6" type="text" id="addressFieldValue" ng-model="searchParameters.addressFieldValue" placeholder="{{::addressSearchConfig.placeholder | translate}}">
+                </article>
 
-  .reg-search {
-    display: flex;
-    gap: 20px;        /* Default gap between left and right containers */
-    flex-wrap: nowrap; /* Prevent wrapping by default */
-    margin: 16px 0;
-  }
+                <article class="fl" ng-show="::programAttributesSearchConfig.show">
+                    <label for="name"><strong>{{ ::programAttributesSearchConfig.label | translate}}</strong></label>
+                    <input tabindex="7" type="text" id="programAttribute" ng-model="searchParameters.programAttributeFieldValue" placeholder="{{ ::programAttributesSearchConfig.placeholder | translate}}">
+                </article>
 
-  .search-seperator-l,
-  .search-seperator-r {
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
+                <article class="fl">
+                    <div class="reg-srch-btn">
+                        <button tabindex="8" type="submit" ng-disabled="disableSearchButton()">{{ ::'REGISTRATION_LABEL_SEARCH' | translate}}</button>
+                    </div>
+                </article>
+            </form>
 
-  .search-seperator-l {
-    flex: 1 1 150px; /* Flexible with minimum width */
-    min-width: 150px;
-    max-width: 250px; /* Default max width for left container */
-  }
-
-  .search-seperator-r {
-    flex: 2 1 450px; /* Flexible with larger minimum width */
-    min-width: 450px;
-    max-width: 600px; /* Default max width for right container */
-  }
-
-  /* Right container form layout */
-  .search-seperator-r form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;        /* Horizontal gap between inputs */
-    align-items: flex-end; /* Align labels and inputs */
-  }
-
-  /* Each input block in right container stacked vertically */
-  .search-seperator-r article.fl {
-    display: flex;
-    flex-direction: column;
-    min-width: 140px;
-  }
-
-  /* Left container input and button alignment */
-  .search-seperator-l form .search-patient-id {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  /* Input styles */
-  .search-seperator-l input,
-  .search-seperator-r input {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  /* Button styles */
-  .reg-srch-btn button {
-    background-color: #0000001F;
-    color: black;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  ul li a.back-btn, ul li a.back-btn:hover, button.back-btn, a.back-btn {
-  padding: 6px 6px 5px 6px;
-  border: 1px solid #476b6b;
-  background: linear-gradient(to bottom, #FFFFFF33);
-  border-radius: 100px;
-}
-
-.reg-search-wrapper {
-  padding: 5px;
-  margin-top: 20px;
-  background: none !important;
-  border: none !important;
-  
-}
-.table {
-  border-collapse: collapse; /* Ensures borders do not overlap */
-  width: 100%; /* Makes the table responsive */
-  border: 1px solid #ccc; /* Outer border */
-}
-
-.table th, 
-.table td {
-  border-top: 1px solid #ccc; /* Horizontal lines for rows */
-  border-bottom: 1px solid #ccc; /* Horizontal lines for rows */
-  padding: 10px; /* Adds space inside cells */
-  text-align: left; /* Aligns text to the left */
-}
-
-/* Remove inner vertical borders */
-.table th + th, 
-.table td + td {
-  border-left: none; /* No vertical lines between columns */
-  border-right: none; /* No vertical lines between columns */
-}
-table td {
-    border-bottom: 1px solid #ddd;
-}
-
-table td:first-child {
-  border-right: none !important;
-}
-
-  /* Responsive breakpoints */
-
-  /* Between 1028px and 768px */
-  @media screen and (max-width: 1028px) {
-    .reg-search {
-      gap: 16px; /* Slightly reduce gap */
-    }
-
-    .search-seperator-l {
-      min-width: 120px;
-      max-width: 200px; /* Gradual reduction */
-    }
-
-    .search-seperator-r {
-      min-width: 350px;
-      max-width: 500px; /* Gradual reduction */
-    }
-    .reg-search-wrapper .reg-search .search-seperator-l {
-      border-right: none ! important;
-    }
-  }
-
-  /* Between 768px and 480px */
-  @media screen and (max-width: 768px) {
-    .reg-search {
-      flex-wrap: wrap; /* Allow wrapping */
-      gap: 14px;       /* Further reduce gap */
-    }
-
-    .search-seperator-l {
-      flex: 1 1 100%;
-      min-width: 140px;
-      max-width: 100%; /* Expand to full width */
-    }
-
-    .search-seperator-r {
-      flex: 1 1 100%;
-      min-width: 320px;
-      max-width: 100%; /* Expand to full width */
-    }
-    .reg-search-wrapper .reg-search .search-seperator-l {
-      border-right: none ! important;
-      border-bottom: none !important;
-    }
-  }
-  
-
-  /* Below 480px */
-  @media screen and (max-width: 480px) {
-    .search-seperator-l,
-    .search-seperator-r {
-      padding: 20px;    /* Adjust padding for smaller screens */
-      max-width: 100%;  /* Full width */
-    }
-
-    .search-seperator-l {
-      min-width: 100px; /* Minimum width for smaller screens */
-    }
-
-    .search-seperator-r {
-      min-width: 260px; /* Minimum width for smaller screens */
-    }
-
-    /* Input adjustments */
-    .search-seperator-l input,
-    .search-seperator-r input {
-      font-size: 14px; /* Smaller font size */
-      padding: 6px 10px; /* Adjust padding */
-    }
-
-    /* Button adjustments */
-    .reg-srch-btn button {
-      font-size: 13px; /* Adjust button font size */
-      padding: 4px 8px; /* Adjust button size */
-    }
-    .reg-search-wrapper .reg-search .search-seperator-l {
-      border-right: none ! important;
-      border-bottom: none !important;
-    }
-  }
-</style>
-
-<section class="reg-search-wrapper" style="margin-top: 20px; border: none !important;">
-<section class="reg-search"  >
-  <!-- Left Search (by ID) -->
-  <article class="search-seperator-l" ng-if="::patientIdentifierSearchConfig.show">
-    <form name="searchByIdForm" ng-submit="searchById()" class="simple-form-ui clearfix">
-      <label for="registrationNumber">
-        <strong style="padding-left: 5px;">{{ ::'REGISTRATION_LABEL_PATIENT_ID' | translate }}</strong>
-      </label>
-      <div class="search-patient-id fl">
-        <input tabindex="2" class="fl" type="text" id="registrationNumber"
-               ng-model="searchParameters.registrationNumber" focus-me="true"
-               placeholder="{{ ::'REGISTRATION_LABEL_ENTER_ID' | translate }}">
-        <div class="reg-srch-btn fl">
-          <button tabindex="3" type="submit" ng-disabled="!searchParameters.registrationNumber" style="background-color: linear-gradient(to bottom, #FFF, #DDD) !important;">
-            {{ ::'REGISTRATION_LABEL_SEARCH' | translate }}
-          </button>
-        </div>
-      </div>
-    </form>
-  </article>
-
-  <!-- Right Search (by name and others) -->
-  <article class="search-seperator-r">
-    <form name="searchByNameForm" ng-submit="searchPatients()" class="simple-form-ui">
-      <article class="fl">
-        <label for="name">
-          <strong>{{ ::'REGISTRATION_LABEL_NAME' | translate }}</strong>
-        </label>
-        <input tabindex="4" type="text" id="name" ng-model="searchParameters.name"
-               placeholder="{{ ::'REGISTRATION_LABEL_ENTER_NAME' | translate }}">
-      </article>
-
-      <article class="fl" ng-if="::customAttributesSearchConfig.show">
-        <label for="customAttribute">
-          <strong>{{::customAttributesSearchConfig.label | translate}}</strong>
-        </label>
-        <input tabindex="5" type="text" id="customAttribute" ng-model="searchParameters.customAttribute"
-               placeholder="{{::customAttributesSearchConfig.placeholder | translate}}">
-      </article>
-
-      <article class="fl" ng-if="::addressSearchConfig.show">
-        <label for="addressFieldValue">
-          <strong>{{::addressSearchConfig.label | translate}}</strong>
-        </label>
-        <input tabindex="6" type="text" id="addressFieldValue" ng-model="searchParameters.addressFieldValue"
-               placeholder="{{::addressSearchConfig.placeholder | translate}}">
-      </article>
-
-      <article class="fl" ng-show="::programAttributesSearchConfig.show">
-        <label for="programAttribute">
-          <strong>{{ ::programAttributesSearchConfig.label | translate }}</strong>
-        </label>
-        <input tabindex="7" type="text" id="programAttribute" ng-model="searchParameters.programAttributeFieldValue"
-               placeholder="{{ ::programAttributesSearchConfig.placeholder | translate }}">
-      </article>
-
-      <article class="fl">
-        <div class="reg-srch-btn">
-          <button tabindex="8" type="submit" ng-disabled="disableSearchButton()" style="background-color: linear-gradient(to bottom, #FFF, #DDD) !important;">
-            {{ ::'REGISTRATION_LABEL_SEARCH' | translate }}
-          </button>
-        </div>
-      </article>
-    </form>
-  </article>
-</section>
+        </article>
+    </section>
 
     <div class="note-container no-search-results" ng-if="noResultsMessage">
         <div class="note warning">
@@ -333,10 +53,10 @@ table td:first-child {
         </div>
     </div>
 
-    <div ng-if="resultsPresent()" infinite-scroll="nextPage()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="noMoreResultsPresent" class="registraition-search-results-container" >
-        <table class="table" >
-            <thead style="background: #1A57E826;">
-            <tr style="color: #1A57E8;font-family: DM Sans,Verdana; height: 30px;margin-right: 20px; ">
+    <div ng-if="resultsPresent()" infinite-scroll="nextPage()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="noMoreResultsPresent" class="registraition-search-results-container">
+        <table class="table">
+            <thead>
+            <tr>
                 <th><strong>{{ ::'REGISTRATION_LABEL_ID' | translate}}</strong></th>
                 <th ng-repeat = "type in ::extraIdentifierTypes track by $index"><strong>{{type.name}}</strong></th>
                 <th><strong>{{ ::'REGISTRATION_LABEL_NAME' | translate}}</strong></th>

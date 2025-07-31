@@ -13,7 +13,7 @@
         }
 
         .table-header.row {
-            background: rgba(221, 230, 252, 1);
+            border-bottom: 1px solid $lightGray;
         }
     }
 
@@ -40,7 +40,7 @@
         span {
             font-size: 14px;
             white-space: nowrap;
-            color: rgba(26, 87, 232, 1);
+            color: $mediumGray;
             font-family: $OpenSansBoldFont;
             font-weight: normal;
             padding-left: 12px;
@@ -58,10 +58,10 @@
     }
 
     .col-header {
-        background: #0D2D7B;;
+        background: $lightestGray;
         font-size: 14px;
         white-space: nowrap;
-        color: #FFFFFF;
+        color: $mediumGray;
         font-family: $OpenSansBoldFont;
         font-weight: normal;
         padding: 10px 0 10px 12px;
@@ -168,9 +168,9 @@
             width: 16%;
 
             a {
-                text-decoration:none;
-                margin: 0 40px 0 20px;
-                color: rgba(0, 103, 199, 1);
+                text-decoration: underline;
+                margin: 0 0 0 10px;
+                color: $bahmniLinkColor;
 
                 &:last-child {
                     margin-right: 10px;
@@ -257,15 +257,11 @@
     button:first-child,
     button.accept-btn {
         margin-left: 10px;
-        text-align: center !important;
     }
 
     button {
         padding: 8px 7px;
         font-size: 11px;
-        background: none !important;
-        color: rgba(26, 87, 232, 1) !important;
-        background-color: none !important;
     }
     .header-alert-icon {
         height: auto !important;
@@ -286,19 +282,18 @@
         button{
             &:not(:first-child):not(:last-child) {
                 border-radius: 0;
+                border-left: none;
             }
 
             &:first-child:not(:only-child) {
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
-                margin-right: 8px;
             }
     
             &:last-child:not(:only-child) {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
-                margin-right: 8px;
-                margin-left: 8px;
+                border-left: none;
             }
         }
     }
@@ -315,7 +310,6 @@
     button.active {
         color: $bahmniTertiaryColor;
         padding-top: 7px;
-        background-color: #dde6fc !important;
 
         span:before {
             font-family: FontAwesome;

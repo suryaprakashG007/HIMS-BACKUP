@@ -1,82 +1,31 @@
-<style>
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: #0D2D7B;
-    border-radius: 6px 6px 0 0;
-}
-
-.section-title {
-    margin: 0;
-    font-size: 16px;
-    color: white;
-}
-
-.form-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.clincalobsimages {
-    width: 24px;
-    height: 24px;
-    background-color: white;
-    border-radius: 50%;
-    padding: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    object-fit: contain;
-    vertical-align: middle;
-    transition: background-color 0.3s ease;
-}
-
-.clincalobsimages:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
-</style>
-
-
 <div id="{{conceptSet.id}}" style="position: relative;">
     <div class="concept-set-title">
         <div id="{{getNormalized(conceptSet.conceptName)}}">
-
-            <!-- Title + Icons aligned in single row -->
-            <div class="section-header">
-                <h2 class="section-title">
-                    <span class="section-label">{{conceptSet.label}}</span>
-                </h2>
-                <div class="form-actions">
-                    <button type="button" ng-if="conceptSet.isOpen" ng-click="conceptSet.maximizeInnerSections($event)"
-                            title="{{ ::'CONCEPT_SET_GROUP_EXPAND_ALL_KEY' | translate }}">
-                        <img src="../images/Obsexpand.png" alt="expand" class="clincalobsimages">
-                    </button>
-
-                    <button type="button" ng-if="conceptSet.isOpen" ng-click="conceptSet.minimizeInnerSections($event)"
-                            title="{{ ::'CONCEPT_SET_GROUP_COLLAPSE_ALL_KEY' | translate }}">
-                        <img src="../images/Obscollapse.png" alt="collapse" class="clincalobsimages">
-                    </button>
-
-                    <label class="add-fav" title="{{ ::'CONCEPT_SET_GROUP_PIN_UNPIN_KEY' | translate }}">
-                        <input type="checkbox" id="hasOldIdentifier" ng-model="conceptSet.alwaysShow"
-                               ng-change="togglePref(conceptSet, conceptSet.conceptName)" />
-                        <img ng-src="{{conceptSet.alwaysShow ? '../images/Obspinned.png' : '../images/Obspin.png'}}"
-                             alt="pin" class="clincalobsimages">
-                    </label>
-
-                    <button type="button" ng-confirm-click="remove($index)" ng-disabled="!canRemove($index)"
-                            title="{{ ::'CONCEPT_SET_GROUP_REMOVE_KEY' | translate }}"
-                            confirm-message="{{::'REMOVE_CONFIRMATION_KEY' | translate}}">
-                        <img src="../images/Obsdelete.png" alt="delete" class="clincalobsimages">
-                    </button>
-                </div>
+            <h2 class="section-title">
+                <span class="section-label">{{conceptSet.label}}</span>
+            </h2>
+            <div class="form-actions fr">
+                <button type="button"  ng-if="conceptSet.isOpen" ng-click="conceptSet.maximizeInnerSections($event)"
+                        title="{{ ::'CONCEPT_SET_GROUP_EXPAND_ALL_KEY' | translate}}">
+                       <i class="fa icon-bahmni-expand"></i>
+                </button>
+                <button type="button" ng-if="conceptSet.isOpen" ng-click="conceptSet.minimizeInnerSections($event)"
+                        title="{{ ::'CONCEPT_SET_GROUP_COLLAPSE_ALL_KEY' | translate}}">
+                    <i class="fa icon-bahmni-collapse"></i>
+                </button>
+                <label class="add-fav" title="{{ ::'CONCEPT_SET_GROUP_PIN_UNPIN_KEY' | translate}}">
+                    <input type="checkbox" id="hasOldIdentifier" ng-model="conceptSet.alwaysShow"
+                           ng-change="togglePref(conceptSet, conceptSet.conceptName)"/>
+                    <i class="fa fa-thumb-tack"></i>
+                </label>
+                <button type="button" ng-confirm-click="remove($index)" ng-disabled="!canRemove($index)"
+                        title="{{ ::'CONCEPT_SET_GROUP_REMOVE_KEY' | translate}}"
+                    confirm-message="{{::'REMOVE_CONFIRMATION_KEY' | translate}}">
+                        <i class="fa fa-trash"></i>
+                </button>
             </div>
-            <!-- End of header -->
-
         </div>
     </div>
-
     <div ng-if="!isFormTemplate(conceptSet)">
         <concept-set ng-if="conceptSet.isLoaded" patient="::patient" ng-show="conceptSet.isOpen"
                      collapse-inner-sections="conceptSet.collapseInnerSections"
@@ -87,8 +36,7 @@
                      section-id="conceptSet.id">
         </concept-set>
     </div>
-
-    <div ng-if="isFormTemplate(conceptSet)" id="{{::conceptSet.formUuid}}" class="form-controls-container">
+    <div ng-if="isFormTemplate(conceptSet)" id={{::conceptSet.formUuid}} class="form-controls-container">
         <form-controls form="conceptSet" patient="patient" validate-form="false"></form-controls>
     </div>
 </div>

@@ -17,9 +17,9 @@
         margin-bottom: -1px;
         a,button {
             padding: 15px 15px 14px;
-            background: none;
+            background: darken($bahmniSecondaryColor, 10%);
             display:inline-block;
-            color: #FFFFFF;
+            color: $white;
             margin: 0 3px 0 0;
             border-radius: 5px 5px 0 0;
             text-decoration: none;
@@ -116,7 +116,7 @@
         &.tab-selected a, &.tab-selected button{
             position: relative;
             background: $bahmniPageBg;
-            color: #000000;
+            color: $bahmniPrimaryColor;
             border: 1px solid $lightGray;
             border-bottom: none;
             outline: none;

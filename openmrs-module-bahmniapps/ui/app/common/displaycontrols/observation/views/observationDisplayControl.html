@@ -1,5 +1,3 @@
-
-
 <section class="block " ng-class="::{'hidden-print': noObsMessage}">
     <h2 ng-if="::(!isClickable() && title)"
         ng-class="::{'section-title': !isFulfilmentDisplayControl, 'form-field': isFulfilmentDisplayControl}">{{::title |
@@ -12,7 +10,7 @@
         ng-dialog-class="ngdialog-theme-default ng-dialog-all-details-page"
         class="section-title has-link">
         <span class="title-link"> {{::section | titleTranslate}} </span>
-        <img src="../images/Roundright.png" alt="Open in new window" class="external-link-img" />
+        <i class="fa fa-external-link"></i>
     </h2>
     <div class="concept-set-container-view">
         <section class="block hierarchy">

@@ -157,7 +157,6 @@ category:  Layout - sections
     min-height: 860px;
     right: 0;
     padding-bottom: 10px;
-    
 }
 
 .dashboard-date-picker {
@@ -303,8 +302,6 @@ category:  Layout - sections
 .dashboard-section {
     margin: 0;
     margin-bottom: 10px;
-    border: none !important;
-    border-color: none !important;
     font-size: 14px;
     position: relative;
     @include box-shadow-for-section();
@@ -422,6 +419,8 @@ category:  Layout - sections
 
                         &:hover {
                             text-decoration: none;
+                            background: #97C32D;
+                            color: #fff;
                         }
                     }
                 }
@@ -1103,12 +1102,12 @@ table.pivot-table {
     float: left;
 
     img {
-        height: 24px;
+        height: 31px;
         float: left;
     }
 
     .back-btn {
-        padding: 8px 8px !important
+        padding: 5px 10px 3px !important
     }
 
     .recent-patients-header {
@@ -1377,11 +1376,11 @@ table.treatments-details-table {
     position: fixed;
     top: 52px;
     z-index: 998;
-    background: #FFFFFF;
+    background: $lighterGray;
     width: 100%;
     left: 0;
     box-shadow: 0px 1px 8px #686666;
-    border: none;
+    border-bottom: 1px #699 solid;
 
     div.patient-info-fixed {
         @include clearfix;
@@ -1534,7 +1533,6 @@ table.treatments-details-table {
 h2.section-title.section-title-pivot {
     overflow: hidden;
     padding: 8px 10px 5px;
-    text-decoration: none !important;
 
     .btn-scrolling {
         margin-top: -3px;

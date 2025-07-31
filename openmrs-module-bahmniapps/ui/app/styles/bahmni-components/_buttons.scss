@@ -329,7 +329,7 @@ a.back-btn, button.back-btn {
     border-left: 0;
     float: left;
     font-size: 16px;
-    border-radius: 100px;
+    border-radius: 3px;
     &:hover {
         text-decoration: none;
         color: $white;
@@ -366,12 +366,11 @@ a.back-btn, button.back-btn {
           }
       }
 }
-#dashboard-link {
-  background: rgba(26, 87, 232, 1);
-}
+
 ul li a.back-btn, ul li a.back-btn:hover, button.back-btn, a.back-btn {
-    padding: 8px 8px;
-    background: #2B3754;
+    padding: 4px 10px 5px 10px;
+    border: 1px solid darken($bahmniSecondaryColor, 15%);
+    background: linear-gradient(to bottom, $bahmniSecondaryColor, darken($bahmniSecondaryColor, 10%));
 
     i {
       font-size: 30px;
@@ -498,9 +497,9 @@ button.back-btn {
 .secondary-button:hover,
 input[type="submit"].secondary-button,
 input[type="submit"].secondary-button:hover  {
-    background:rgba(26, 87, 232, 1);
+    background: linear-gradient(to bottom, $bahmniSecondaryColor, darken($bahmniSecondaryColor, 10%));
     color: $white;
-    text-decoration: none;
+    border:1px solid darken($bahmniSecondaryColor, 15%);
 }
 
 .icon-button{

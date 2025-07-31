@@ -44,7 +44,6 @@
         button {
             @include button($bahmniSecondaryColor, darken($bahmniSecondaryColor, 10%), $white);
             font-size: 14px;
-            background: rgba(63, 80, 148, 1) !important;
             border-color: darken($bahmniSecondaryColor, 15%);
         }
     }

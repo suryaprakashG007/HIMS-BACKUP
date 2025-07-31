@@ -97,35 +97,3 @@
     opacity: .5;
     pointer-events: auto;
 }
- 
-.backlink-image {
-        height: 24px;
-        width: 24px;
-        vertical-align: middle;
-    }
-
-    .section-title span {
-        border-bottom: none !important;
-    }
-.form-builder-row .form-builder-column-wrapper .form-builder-column .form-field-wrap .label-wrap .form-builder-tooltip-trigger {
-    cursor: pointer;
-    display: none !important;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    text-align: center;
-    border-radius: 100%;
-    font-size: 20px;
-    color: #669999;
-    box-shadow: 1px 1px 1px #ccc;
-    background: #FFF;
-    padding: 0;
-    position: relative;
-    margin-left: 5px;
-}
-.program-enrollment-container .programName {
-    font-size: 16px;
-    font-family: openSansSemiBold;
-    margin-bottom: 5px;
-    color: rgba(0, 85, 197, 1);
-}

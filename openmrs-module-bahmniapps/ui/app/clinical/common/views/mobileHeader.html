@@ -1,55 +1,19 @@
-<style>
-    .mobile-header-wrapper .consultation-btn {
-    border-radius: 0;
-    font-size: 14px;
-    border: none;
-    outline: none;
-    background-color: #88af28;
-    background: #f1f5f9 !important;
-    color: black !important;
-    padding: 11px 8px 11px;
-    margin-right: 0;
-}
-.mobile-header-wrapper .btn-icon {
-    border-radius: 0;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    color: white;
-    padding: 4px 6px;
-}
-.button, button, input[type="submit"], form .input-prepend [type="submit"].add-on, .form .input-prepend [type="submit"].add-on, input[type="button"], form .input-prepend [type="button"].add-on, .form .input-prepend [type="button"].add-on, input[type="reset"], form .input-prepend [type="reset"].add-on, .form .input-prepend [type="reset"].add-on, input[type="submit"], form .input-prepend [type="submit"].add-on, .form .input-prepend [type="submit"].add-on, a.button {
-    border-radius: 3px;
-    background: none;
-    background-color: #DDD;
-    border: #DDD 1px solid;
-    padding: 6px 20px 7px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: #363463;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-}
-</style>
-
 <div class="mobile-header-wrapper">
     <button class="toggle-patient" type="button" type="button" ng-click="toggleMobileMenu()">
         <i class="fa fa-bars fa-white fa-large"></i>
     </button>
     <div class="mobile-header-right">
         <button ng-if="::clinicalDashboardConfig.allowAdhocTeleConsultation" type="button" ng-click="startAdhocTeleconsultationLink()"
-            class="btn-icon" title="{{'START_TELECON_KEY'|translate}}" style="background: none !important;">
+            class="btn-icon" title="{{'START_TELECON_KEY'|translate}}">
             <i class="fa fa-headphones"></i>
         </button>
         <button type="button" class="btn-icon"
             ng-click="printDashboard() || print()" accesskey="{{'CLINICAL_PRINT_ACCESS_KEY'| translate}}"
-            title="{{'CLINICAL_PRINT_TRANSLATION_KEY'|translate}}" style="background: none !important;"
+            title="{{'CLINICAL_PRINT_TRANSLATION_KEY'|translate}}"
         >
             <i class="fa fa-print"></i>
         </button>
-        <button type="button" class="btn-icon" bm-gallery patient="patient" access-impression="true" style="background: none !important; ">
+        <button type="button" class="btn-icon" bm-gallery patient="patient" access-impression="true">
             <i class="fa fa-file-text" bm-lazy-image-observation-gallery-items promise="patientDocumentsPromise"></i>
         </button>
         <button type="button" class="consultation-btn" ng-if="(visitHistory.activeVisit || retrospectiveEntry || allowConsultation()) && (stateChange() || visitPage)"

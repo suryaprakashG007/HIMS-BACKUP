@@ -1,5 +1,3 @@
-
-
 <div ng-controller="PatientDashboardLabOrdersController" class="dashboard-laborders-section">
     <div>
         <h2 ng-dialog="dashboard/views/dashboardSections/labSummary.html"
@@ -7,7 +5,7 @@
             ng-dialog-class="ngdialog-theme-default ng-dialog-all-details-page"
             ng-dialog-controller="PatientDashboardLabSummaryController" class="section-title has-link">
             <span class="title-link"> {{section | titleTranslate}} </span>
-            <img src="../images/Roundright.png" alt="Open in new window" class="external-link-img" />
+            <i class="fa fa-external-link"></i>
         </h2>
         <investigation-results params="dashboardConfig"></investigation-results>
     </div>

@@ -1,77 +1,28 @@
-<section style="width: 100%; box-sizing: border-box; padding: 16px;">
-  <style>
-    .address-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      flex-direction: row;
-      direction: ltr;
-      font-family: 'Outfit', sans-serif;
-    }
- 
-    .address-field {
-      box-sizing: border-box;
-      flex: 1 1 220px; /* Set consistent flex-basis */
-      min-width: 200px;
-      max-width: calc(50% - 20px); /* Fields share row space equally */
-    }
- 
-    .address-field:nth-child(odd) {
-      max-width: 260px; /* Add consistent spacing for odd fields */
-    }
-    .address-field:nth-child(even) {
-      max-width: 260px; /* Add consistent spacing for odd fields */
-    }
- 
-    .address-label {
-      font-size: 15px;
-      font-weight: 500;
-      color: #333;
-      display: block;
-      margin-bottom: 6px;
-    }
- 
-    .address-input {
-      width: 100%;
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
- 
-    @media (max-width: 768px) {
-      .address-field {
-        max-width: 100%; /* Stack fields on smaller screens */
-        margin-right: 0;
-      }
-    }
-  </style>
- 
-  <div class="address-flex">
-    <!-- Ordered fields: address1, address2, cityVillage, postalCode, countyDistrict, stateProvince -->
-    <article class="address-field" ng-repeat="field in ['address1', 'address2', 'cityVillage', 'postalCode', 'countyDistrict', 'stateProvince']">
-      <div ng-repeat="addressLevel in ::addressLevels" ng-if="addressLevel.addressField === field">
-        <label class="address-label" for="{{::addressLevel.addressField}}">
-          {{::getTranslatedAddressFields(addressLevel.name) | translate}}
-          <span ng-show="::addressLevel.required">*</span>
-        </label>
-        <input type="text"
-               id="{{::addressLevel.addressField}}"
-               class="address-input"
-               pattern-validate
-               non-blank="::addressLevel.required"
-               ng-model="address[addressLevel.addressField]"
-               bahmni-autocomplete
-               source="getAddressEntryList(addressLevel.addressField)"
-               response-map="getAddressDataResults"
-               on-select="addressFieldSelected(addressLevel.addressField)"
-               ng-change="clearFields(addressLevel.addressField)"
-               strict-select="addressLevel.isStrictEntry"
-               initial-value="selectedValue[addressLevel.addressField]"
-               is-invalid="addressFieldInvalid"
-               ng-class="{'illegalValue': addressFieldInvalid}"
-               on-edit="removeAutoCompleteEntry(addressLevel.addressField)">
-      </div>
+<section class="form-field-inline" ng-repeat="addressLevels in ::addressLevelsChunks">
+    <article class="form-field" ng-repeat="addressLevel in ::addressLevels"
+             ng-class="::{'right-form-field': $index % 2 != 0 }">
+        <div class="field-attribute">
+            <label for="{{::addressLevel.addressField}}">{{::getTranslatedAddressFields(addressLevel.name) | translate}}
+                <span class="asterick" ng-show="::addressLevel.required">*</span>
+            </label>
+        </div>
+        <div class="field-value">
+            <input type="text"
+                   id="{{::addressLevel.addressField}}"
+                   pattern-validate
+                   non-blank="::addressLevel.required"
+                   ng-model="address[addressLevel.addressField]"
+                   bahmni-autocomplete
+                   source="getAddressEntryList(addressLevel.addressField)"
+                   response-map="getAddressDataResults"
+                   on-select="addressFieldSelected(addressLevel.addressField)"
+                   ng-change="clearFields(addressLevel.addressField)"
+                   strict-select="addressLevel.isStrictEntry"
+                   initial-value="selectedValue[addressLevel.addressField]"
+                   is-invalid="addressFieldInvalid"
+                   ng-class="{'illegalValue': addressFieldInvalid}"
+                   on-edit="removeAutoCompleteEntry(addressLevel.addressField)"
+            >
+        </div>
     </article>
-  </div>
 </section>

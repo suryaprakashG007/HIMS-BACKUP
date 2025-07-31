@@ -133,9 +133,6 @@ button.save-consultation {
   float: right;
   margin: 8px 10px 0;
   padding: 10px 15px 9px;
-  background: #ffffff !important;
-  color: #000 !important;
-  border-radius: 26px !important;
 }
 button.save-consultation {
   &.hideSaveText {
@@ -160,12 +157,8 @@ button.save-consultation {
 a.quick-links,
 a.btn--success {
   @include button($success, darken($success, 8%), white);
-  border-radius: 100px;
-  padding: 9px 9px;
+  padding: 10px 20px;
   font-size: 16px;
-  background-color: rgba(241, 245, 249, 1) !important;
-  background: rgba(241, 245, 249, 1) !important;
-  color: rgba(0, 0, 0, 1) !important;
 }
 
 td .status {
@@ -246,7 +239,7 @@ u,
 
 .placeholder-text {
   background: #fff;
-  padding: 20px;
+  padding: 5px;
   color: #444 !important;
   p {
     margin-bottom: 0;

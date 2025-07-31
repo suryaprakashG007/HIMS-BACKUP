@@ -24,7 +24,7 @@
       float: right;
       margin-left:10px;
       cursor: pointer;
-      color: mediumblue;
+      color: #363463;
       box-shadow: none;
       background: none;
       border: none;
@@ -32,6 +32,8 @@
       padding: 0;
       font-family: openSansSemiBold;
       &:hover , &:active , &:focus{
+        color: #5B8989;
+        text-decoration: underline;
         outline:none;
       }
     }
@@ -64,10 +66,10 @@
         tr{
           border: none;
           &:nth-child(odd){
-            background: rgba(252, 255, 243, 1)
+            background: #F9F4E7
           }
           &:nth-child(even){
-            background: rgba(245, 245, 245, 1);
+            background: #FFF;
           }
           td{
             border: none;
@@ -125,7 +127,7 @@
     color: #fff;
     font-size: 16px;
     clear: both;
-    background: rgba(13, 45, 123, 1);
+    background: #699;
     position: relative;
     border-radius: 2px 2px 0 0;
   }
@@ -155,7 +157,7 @@
   margin-bottom: 10px;
   margin-right: 0.5%;
   width: 33%;
-  border: 1px solid rgba(217, 219, 222, 1);
+  border: 1px solid #699;
   border-radius: 5px;
   padding: 15px 10px;
   line-height: 1.35;
@@ -183,8 +185,6 @@
       .field-value span{
         margin: 0.7em 0.8em 0em 0em;
         display: inline-block;
-        color: rgba(0, 0, 0, 1);
-        font-weight: 600;
       }
       .field-attribute label{
         width:11em;
@@ -244,10 +244,10 @@
           pointer-events: none;
         }
         .label-bg {
-          fill: rgba(243, 248, 255, 1);
+          fill: #ABA8A8;
         }
         .label {
-          fill: rgba(0, 0, 0, 1);
+          fill: #FFFFFF;
         }
         .date {
           fill: #000000;

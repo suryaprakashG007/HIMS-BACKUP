@@ -1,0 +1,48 @@
+name: Production publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Production:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allows the github token to be used to create a tag
+    steps:
+      - name: ⬇️ Check out repository code
+        uses: actions/checkout@v3
+      - name: 📦 Install dependencies
+        uses: ./.github/actions/install-dependencies
+      - id: versionCheck
+        uses: EndBug/version-check@v2
+        with:
+          file-url: https://unpkg.com/bahmni-carbon-ui@latest/package.json
+          static-checking: localIsNew
+      - name: Version guard
+        if: steps.versionCheck.outputs.changed == 'false'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('No version change detected. You should run `yarn bump:<patch|minor|major>` to bump the version')
+      - name: 🧪 Run tests
+        run: yarn test
+      - name: Publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+          yarn publish --new-version ${{ steps.versionCheck.outputs.version }}
+      - name: Create Tag
+        uses: actions/github-script@v5
+        env:
+          VERSION: ${{ steps.versionCheck.outputs.version }}
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/v' + process.env.VERSION,
+              sha: context.sha
+            })

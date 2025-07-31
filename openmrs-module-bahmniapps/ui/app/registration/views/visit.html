@@ -1,73 +1,12 @@
-<style>
-    .split-button .primaryOption button {
-    border-radius: 7px;
-    background: #1A57E8;
-    background-color: #1A57E8;
-    border: #1A57E8 1px solid;
-    padding: 6px 20px 7px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: white;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-    max-width: 250px;
-    min-width: 0;
-    margin-right: 10px;
-}
-.registraion_legend:before {
-    content: '';
-    border-top: none;
-    position: absolute;
-    top: 14px;
-    width: 96%;
-}
-button.cancel {
-    border-radius: 8px;
-    background: rgba(26, 87, 232, 1) !important;
-    border: rgba(217, 219, 222, 1) 1px solid;
-    padding: 6px 20px 7px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: rgba(255, 255, 255, 1);
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-    max-width: 250px;
-    min-width: 0;
-    margin-right: 10px;
-}
-.form-builder-row .form-builder-column-wrapper .form-builder-column .form-field-wrap .label-wrap .form-builder-tooltip-trigger {
-    cursor: pointer;
-    display: none !important;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    text-align: center;
-    border-radius: 100%;
-    font-size: 20px;
-    color: #669999;
-    box-shadow: 1px 1px 1px #ccc;
-    background: #FFF;
-    padding: 0;
-    position: relative;
-    margin-left: 5px;
-}
-
-</style>
-
-
 <div class="reg-body-wrapper visit-patient-page">
     <div class="non-printable" xmlns="http://www.w3.org/1999/html">
         <div>
             <form name="myForm" ng-init="disableFormSubmitOnEnter()" class="visit-patient">
-                <div class="box-container" style="margin-top: 20px;border-radius: 16px;">
+                <div class="box-container">
 
-                    <div class="registraion_legend first-registraion_legend" style="border: none !important;" >
-                        <span class="mylegend" style="background: rgba(33, 26, 232, 0.15) !important;color: rgba(33, 26, 232, 1);"><strong>{{ ::'REGISTRATION_LABEL_SUMMARY' | translate}}</strong></span>
-                    </div>
+                    <legend class="registraion_legend first-registraion_legend">
+                        <span class="mylegend"><strong>{{ ::'REGISTRATION_LABEL_SUMMARY' | translate}}</strong></span>
+                    </legend>
                     <section class="patient-identifier-name">
                         <div class="form-field">
                             <div class="field-attribute">
@@ -86,17 +25,13 @@ button.cancel {
                             </div>
                         </div>
                     </section>
-                </div>
-                <div ng-repeat="conceptSet in ::availableConceptSets" class="concept-set-group">
-                            <div class="registraion_legend">
-                                <span class="mylegend" ng-if="::conceptSet.options.translationKey" >{{::conceptSet.options.translationKey | translate}}</span>
-                                <span class="mylegend" ng-if="::!conceptSet.options.translationKey" style="background: rgba(26, 87, 232, 0.15);color: rgba(26, 87, 232, 1);margin-left: 0px; ">{{::conceptSet.label}}</span>
-                            </div>
-                </div>
-                <div class="box-container" style="margin-top: 20px;border-radius: 16px;">
                     <!-- TODO: need to find a better way to render the directive again on context change or after all the calls are made.-->
                     <section class="observation-section" ng-if="context">
                         <div ng-repeat="conceptSet in ::availableConceptSets" class="concept-set-group">
+                            <div class="registraion_legend">
+                                <span class="mylegend" ng-if="::conceptSet.options.translationKey">{{::conceptSet.options.translationKey | translate}}</span>
+                                <span class="mylegend" ng-if="::!conceptSet.options.translationKey">{{::conceptSet.label}}</span>
+                            </div>
                             <div class="clearfix">
                                 <article ng-if="!isFormTemplate(conceptSet)" class="fl obs-section-form">
                                     <concept-set concept-set-name="::conceptSet.options.conceptName" required="::conceptSet.options.required" patient="patient" observations="observations"
@@ -106,7 +41,7 @@ button.cancel {
                                     <form-controls form="conceptSet" patient="patient" validate-form="true"></form-controls>
                                 </article>
                                 <article ng-if="::conceptSet.options.showLatest" class="obs-section fr" id="observationSection">
-                                    <bahmni-observation patient="patient" config="{conceptNames: conceptSet.options.conceptNames, scope: 'latest'}" section-title="'REGISTRATON_LATEST_KEY'" ></bahmni-observation>
+                                    <bahmni-observation patient="patient" config="{conceptNames: conceptSet.options.conceptNames, scope: 'latest'}" section-title="'REGISTRATON_LATEST_KEY'"></bahmni-observation>
                                 </article>
                             </div>
                         </div>
@@ -115,9 +50,9 @@ button.cancel {
                 <div class="submit-btn-container">
                     <button type="button" class="cancel" tabindex="-1" ng-show="::canCloseVisit" ng-click="closeVisitIfDischarged()">{{ ::'REGISTRATION_LABEL_CLOSE_VISIT' | translate}}</button>
                     <div class="right">
-                        <button ng-click="back()" accesskey="{{ ::'REGISTRATION_BACK_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_BACK' | translate" style="background: none;border-radius: 8px;"></button>
-                        <button single-click="submit()" class="confirm" accesskey="{{ ::'REGISTRATION_SAVE_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_SAVE' | translate" style="background: rgba(26, 87, 232, 1);border: rgba(217, 219, 222, 1) 1px solid;border-radius: 8px;"></button>
-                        <button single-click="setDashboardRedirect()" class="confirm" style="margin-right: 0px;background: rgba(26, 87, 232, 1);border: rgba(217, 219, 222, 1) 1px solid;border-radius: 8px;" ng-show="::enableDashboardRedirect" ng-bind-html="::'REGISTRATION_TO_CLINICAL' | translate"></button>
+                        <button ng-click="back()" accesskey="{{ ::'REGISTRATION_BACK_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_BACK' | translate"></button>
+                        <button single-click="submit()" class="confirm" accesskey="{{ ::'REGISTRATION_SAVE_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_SAVE' | translate"></button>
+                        <button single-click="setDashboardRedirect()" class="confirm" style="margin-right: 0px;" ng-show="::enableDashboardRedirect" ng-bind-html="::'REGISTRATION_TO_CLINICAL' | translate"></button>
                     </div>
                 </div>
             </form>

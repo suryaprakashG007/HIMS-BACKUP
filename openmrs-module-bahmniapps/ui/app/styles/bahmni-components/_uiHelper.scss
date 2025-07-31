@@ -43,14 +43,13 @@ use either a `<div>` or an `<section>` element:
 
 h2.section-title {
 	font-family: $OpenSansFont;
-	padding: 15px;
+	padding: $defaultSpacing;
 	margin-top: 0;
 	margin-bottom: 0;
 	color: $white;
-	text-decoration: none !important;
 	font-size: 16px;
 	clear: both;
-	background: #0D2D7B;
+	background: $bahmniSecondaryColor;
 	position: relative;
 	border-radius: 2px 2px 0 0;
 	.section-title-text{
@@ -59,26 +58,19 @@ h2.section-title {
 	}
 	&.has-link {
         cursor: pointer;
-		display: flex;
-		align-items: center;
-		flex-direction: row;
-		gap: 8px;
     	&:hover {
-    		background: #0D2D7B;
+    		background: darken($bahmniSecondaryColor,5%);
     	}
 	    .title-link {
-			flex-grow: 1;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-	        border-bottom:none;
+	        border-bottom: 1px solid white;
 	    }
-	   .external-link-img {
-    		width: 30px;
-    		height: 30px;
-    		flex-shrink: 0;
-    		object-fit: contain;
-		}
+	    .fa-external-link {
+	        position: absolute;
+	        right: 0;
+	        top: 0;
+	        font-size: 26px;
+	        opacity: 0.5;
+	    }
 	}
 }
 

@@ -1,66 +1,25 @@
-<style>
-    .split-button .primaryOption button {
-    border-radius: 3px;
-    background: #1A57E8;
-    background-color: #1A57E8;
-    border: #1A57E8 1px solid;
-    padding: 6px 20px 7px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: white;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-    max-width: 250px;
-    min-width: 0;
-    margin-right: 10px;
-    }
-    .split-button ul.hidden-options {
-    width: 250px;
-    margin-top: 1px;
-    box-shadow: 1px 2px 2px #6B6969;
-    float: none;
-    z-index: 9999;
-    background: #1A57E8;
-    border-bottom: none;
-    color: #fff;
-    clear: both;
-    border-right: 0;
-    position: absolute;
-}
-.split-button button.toggle-button {
-    background: #1A57E8;
-}
-.split-button button.toggle-button:hover {
-        background: #1A57E8;
-        border: #1A57E8 1px solid;
-}
- 
-</style>
- 
 <div class="submit-btn-container clearfix">
     <span ng-switch="forwardActionKey">
         <span data-ng-switch-when="enterVisitDetails">
             <button type="submit" class="right confirm"
                 ng-click="setSubmitSource('enterVisitDetails')"
                 accesskey="{{ ::'REGISTRATION_ENTER_VISIT_DETAILS_ACCESS_KEY' | translate }}"
-                ng-bind-html="::'REGISTRATION_LABEL_ENTER_VISIT' | translate" >
+                ng-bind-html="::'REGISTRATION_LABEL_ENTER_VISIT' | translate">
             </button>
         </span>
         <span data-ng-switch-when="forwardAction">
                 <button type="submit" class="right confirm"
                         ng-click="setSubmitSource('forwardAction')"
                         accesskey="{{ ::activeVisitConfig.shortcutKey | translate }}"
-                        ng-bind-html="::activeVisitConfig.translationKey | translate" >
+                        ng-bind-html="::activeVisitConfig.translationKey | translate">
                 </button>
         </span>
-        <span ng-if="::showStartVisitButton()" data-ng-switch-when="startVisit" >
+        <span ng-if="::showStartVisitButton()" data-ng-switch-when="startVisit">
             <div split-button options="::visitControl.visitTypes"
                  primary-option="::visitControl.defaultVisitType"
                  option-text="visitControl.startButtonText"
                  option-click="visitControl.startVisit"
-                 class="right" >
+                 class="right">
              </div>
         </span>
         <span data-ng-switch-when="configAction">
@@ -71,7 +30,7 @@
         </span>
     </span>
     <button type="submit" class="right submit-btn" ng-click="setSubmitSource('save')"
-            accesskey="{{ ::'REGISTRATION_SAVE_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_SAVE' | translate" style="background: none;border: 1px solid #D9DBDE;"></button>
+            accesskey="{{ ::'REGISTRATION_SAVE_ACCESS_KEY' | translate}}" ng-bind-html="::'REGISTRATION_LABEL_SAVE' | translate"></button>
     <span class="right" style="margin-right:10px" ng-click="notifyOnWhatsAapp()" ng-show="enableWhatsAppButton"><img src="../images/whatsapp.png" height="35" size="35">
     </span>
 </div>

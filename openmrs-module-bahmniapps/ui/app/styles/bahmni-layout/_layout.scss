@@ -19,7 +19,7 @@
     z-index: 1000;
     padding: 0 10px;
     box-sizing: border-box;
-    background: #061436;
+    background: $bahmniSecondaryColor;
     height: 52px;
     width: 100%;
 
@@ -149,7 +149,6 @@
                 padding-left: 10px;
                 padding-right: 10px;
                 margin-right: 10px;
-                border-radius: 26px;
             }
 
             @media screen and(max-width:470px) {
@@ -160,8 +159,7 @@
         .dialog-button-group {
             margin-top: 6px;
             float: left;
-            padding: 5px 20px;
-            border-radius: 26px;
+            padding: 5px 10px;
             font-size: 14px;
             height: 40px;
         }
@@ -211,7 +209,7 @@
     margin: 0px;
     min-height: 860px;
     width: 100%;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 30px;
 
     .opd-content-wrapper {

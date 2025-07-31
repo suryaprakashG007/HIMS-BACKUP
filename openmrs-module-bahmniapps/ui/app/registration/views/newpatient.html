@@ -1,277 +1,64 @@
-<style>
-  .responsive-wrapper {
-    margin-top: 25px;
-  }
+<div class="reg-body-wrapper">
+    <div class="simple-form-ui new-patient">
+        <form name="myForm" class="form-horizontal well" single-submit="create()">
+            <div class="box-container box-container-default">
+                <legend class="registraion_legend first-registraion_legend">
+                    <span class="mylegend"><strong>{{::'REGISTRATION_LABEL_NEW_PATIENT' | translate}}</strong></span>
+                </legend>
+                <section class="clearfix">
+                    <div class="photo-container-wrapper" ng-if="!disablePhotoCapture">
+                        <div class="photo-container">
+                            <div ng-model="patient.image" capture-photo="" class="capture-photo-btn"></div>
+                            <img class="patient-image" ng-src="{{patient.image}}" fallback-src="../images/blank-user.gif">
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <article class="form-field existing-patient">
+                        <div class="field-attribute">
+                            <label class="control-label" for="patientID">{{:: getTranslatedPatientIdentifier(patient.primaryIdentifier.identifierType.name) | translate}}
+                                <span ng-show="::patient.primaryIdentifier.identifierType.required && !patient.primaryIdentifier.hasIdentifierSources()" class="asterick">*</span>
+                            </label>
+                        </div>
+                        <div ng-show="::(patient.primaryIdentifier.hasIdentifierSources() && !patient.primaryIdentifier.hasIdentifierSourceWithEmptyPrefix())" class="field-value" id="patientID">
+                            <select id="identifierPrefix" ng-model="patient.primaryIdentifier.selectedIdentifierSource"
+                                    ng-options="identifierSource.prefix for identifierSource in ::patient.primaryIdentifier.identifierType.identifierSources" ng-change="patient.primaryIdentifier.generate()"
+                                    required>
+                            </select>
+                        </div>
 
-  .mylegend {
-    background: #eee;
-    line-height: 16px;
-    padding: 3px 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  .photo-container-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    margin-right: 50px;
-  }
-
-  .photo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .photo-container img {
-    max-width: 120px;
-    border-radius: 6px;
-  }
-
-  .photo-buttons {
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: 6px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    
-  }
-
-  .camera-btn,
-  .upload-btn {
-    width: 50px;
-    height: 28px;
-    border: none;
-    cursor: pointer;
-    margin-left: 5px;
-  }
-
-.photo-buttons .upload-btn {
-    /* Ensure the background image is applied correctly */
-    background-image: url('../images/Gallery.png') !important;
-    background-size: contain; /* Scales the image to fit the button while maintaining its aspect ratio */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents tiling */
-
-    /* Button styles */
-    font-size: 10px;
-    background-color: #1A57E8;
-    width: 50px; /* Adjust the width */
-    height: 28px; /* Adjust the height */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    display: inline-block;
-    text-align: center;
-    line-height: 50px; /* Centers the text vertically */
-    padding: 10px;
-}
-.photo-buttons .camera-btn {
-    /* Ensure the background image is applied correctly */
-    background-image: url('../images/photo.png') !important;
-    background-size: contain; /* Scales the image to fit the button while maintaining its aspect ratio */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents tiling */
-
-    /* Button styles */
-    font-size: 10px;
-    background-color: #1A57E8;
-    width: 50px; /* Adjust the width */
-    height: 28px; /* Adjust the height */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    display: inline-block;
-    text-align: center;
-    line-height: 50px; /* Centers the text vertically */
-    padding: 10px;
-}
-  .identifier-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .identifier-source,
-  .registration-number,
-  .enter-id-checkbox {
-    display: flex;
-    flex-direction: column;
-    min-width: 220px;
-    gap: 4px;
-    padding: 5px;
-  }
-
-  .identifier-source {
-    margin-left: 2%;
-  }
-
-  .enter-id-checkbox {
-    flex-direction: row;
-    align-items: center;
-    margin-top: 24px;
-  }
-
-  .related-identifier {
-    margin-top: 16px;
-  }
-
-  .control-label.hidden {
-    display: none !important;
-  }
-
-  .ul li a.back-btn, ul li a.back-btn:hover, button.back-btn, a.back-btn {
-    padding: 6px 6px 5px 6px;
-    border: 1px solid #476b6b;
-    background: linear-gradient(to bottom, #FFFFFF33);
-    border-radius: 100px;
-  }
-  .split-button:hover .primaryOption button:hover {
-    background: #1A57E8 !important;
-  }
-  /* Media Queries for Responsiveness */
-  @media screen and (max-width: 1024px) {
-    .identifier-wrapper {
-      flex-direction: column;
-    }
-
-    .photo-container-wrapper {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .photo-container img {
-      max-width: 100px;
-    }
-
-    .mylegend {
-      font-size: 14px;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .identifier-source,
-    .registration-number,
-    .enter-id-checkbox {
-      min-width: 100%;
-    }
-
-    .photo-container-wrapper {
-      margin-right: 0;
-    }
-
-    .camera-btn,
-    .upload-btn {
-      width: 35px;
-      height: 25px;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .mylegend {
-      font-size: 12px;
-      padding: 2px 0;
-    }
-
-    .photo-container img {
-      max-width: 80px;
-    }
-
-    .identifier-wrapper {
-      gap: 5px;
-    }
-
-    .camera-btn,
-    .upload-btn {
-      width: 30px;
-      height: 20px;
-    }
-  }
-</style>
-
-  <div class="reg-body-wrapper">
-  <div class="simple-form-ui new-patient">
-    <form name="myForm" class="form-horizontal well" single-submit="create()">
-      <div class="box-container box-container-default responsive-wrapper">
-        <legend class="registraion_legend first-registraion_legend" style="color: #1A57E8;font-family: 'Outfit', sans-serif;">
-          <span class="mylegend">
-            <strong>{{::'REGISTRATION_LABEL_NEW_PATIENT' | translate}}</strong>
-          </span>
-        </legend>
-
-        <!-- Patient Photo -->
-        <section class="clearfix">
-        <div class="photo-container-wrapper" ng-if="!disablePhotoCapture">
-        <div class="photo-container">
-          <img class="patient-image" ng-src="{{patient.image}}" fallback-src="../images/blank-user.gif" />
-        <div class="photo-buttons"  >
-          <button capture-photo="" ng-model="patient.image" style="background: none !important; border: none !important;display: flex; flex-direction: row;"></button>
-        </div>
-        </div>
-        </div>
-        </section>
-
-        <!-- Identifier Section -->
-        <section>
-          <article class="form-field existing-patient">
-            <div class="identifier-wrapper">
-              <!-- Identifier Source -->
-              <div class="identifier-source">
-                <label class="control-label" for="identifierPrefix" style="font-family: 'Outfit', sans-serif; font-size: 15px;">
-                  {{:: getTranslatedPatientIdentifier(patient.primaryIdentifier.identifierType.name) | translate }}
-                  <span ng-show="::patient.primaryIdentifier.identifierType.required && !patient.primaryIdentifier.hasIdentifierSources()" class="asterick">*</span>
-                </label>
-                <select id="identifierPrefix"
-                        ng-model="patient.primaryIdentifier.selectedIdentifierSource"
-                        ng-options="identifierSource.prefix for identifierSource in ::patient.primaryIdentifier.identifierType.identifierSources"
-                        ng-change="patient.primaryIdentifier.generate()"
-                        required
-                        ng-show="::(patient.primaryIdentifier.hasIdentifierSources() && !patient.primaryIdentifier.hasIdentifierSourceWithEmptyPrefix())"
-                        style="font-family: 'Outfit', sans-serif; font-size: 15px;">
-                </select>
-              </div>
-
-              <!-- Registration Number -->
-              <div ng-show="patient.primaryIdentifier.hasOldIdentifier" class="registration-number">
-                <input type="text"
-                       id="registrationNumber"
-                       ng-model="patient.primaryIdentifier.registrationNumber"
-                       placeholder="{{:: getTranslatedPatientIdentifier(patient.primaryIdentifier.identifierType.description)}}"
-                       non-blank="patient.primaryIdentifier.isIdentifierRequired()"
-                       pattern-validate
-                       ng-change="patient.primaryIdentifier.generate()"
-                       focus-on="patient.primaryIdentifier.hasOldIdentifier"
-                       style="margin-left: 8px; margin-top: 32px; font-family: 'Outfit', sans-serif; max-width: 165px; padding: 3px;" />
-              </div>
-
-              <!-- Enter ID Checkbox -->
-              <div ng-show="::patient.primaryIdentifier.hasIdentifierSources() && showEnterID" class="enter-id-checkbox">
-                <label for="hasOldIdentifier" class="control-label" style="font-family: 'Outfit', sans-serif; font-size: 15px;">
-                  {{::'REGISTRATION_LABEL_ENTER_ID' | translate}}
-                </label>
-                <input type="checkbox"
-                      id="hasOldIdentifier"
-                      class="input-label-inline"
-                      ng-model="patient.primaryIdentifier.hasOldIdentifier"
-                      ng-change="patient.primaryIdentifier.clearRegistrationNumber()" />
-              </div>
+                        <div class="field-value field-value-has-identifier">
+                            <input type="text" id="registrationNumber" ng-model="patient.primaryIdentifier.registrationNumber"
+                                   placeholder="{{:: getTranslatedPatientIdentifier(patient.primaryIdentifier.identifierType.description)}}" non-blank="patient.primaryIdentifier.isIdentifierRequired()" pattern-validate
+                                   ng-change="patient.primaryIdentifier.generate()" focus-on="patient.primaryIdentifier.hasOldIdentifier"
+                                   ng-show="patient.primaryIdentifier.hasOldIdentifier || !patient.primaryIdentifier.hasIdentifierSources()" >
+                            <div ng-show="::patient.primaryIdentifier.hasIdentifierSources() && showEnterID" class="fl">
+                                <div class="field-attribute hasOldIdentifier-field-attribute">
+                                    <label for="hasOldIdentifier" class="control-label">{{::'REGISTRATION_LABEL_ENTER_ID' | translate}}</label>
+                                </div>
+                                <div class="field-value">
+                                    <input class="input-label-inline" ng-show="::showEnterID" type="checkbox" id="hasOldIdentifier" ng-model="patient.primaryIdentifier.hasOldIdentifier"
+                                           ng-change="patient.primaryIdentifier.clearRegistrationNumber()">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="::relatedIdentifierAttribute.name" class="field-value field-value-has-identifier">
+                            <div class="fl"> 
+                                <div class="field-attribute hasOldIdentifier-field-attribute">
+                                    <label for="related-identifier-attribute" class="control-label">{{::'RELATED_PATIENT_IDENTIFIER_LABEL' | translate}}</label>
+                                </div>
+                                <div class="field-value">
+                                    <input type="checkbox" class="input-label-inline" id="related-identifier-attribute" ng-model="patient[relatedIdentifierAttribute.name]"
+                                            ng-change="patient[relatedIdentifierAttribute.name].handleUpdate()">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
             </div>
-          </article>
-        </section>
-      </div>
-
-      <!-- Patient Common View -->
-      <div ng-include="'views/patientcommon.html'"></div>
-      <!-- Patient Action -->
-      <patient-action></patient-action>
-    </form>
-  </div>
+            <div ng-include="'views/patientcommon.html'"></div>
+            <patient-action></patient-action>
+        </form>
+        <br>
+    </div>
 </div>

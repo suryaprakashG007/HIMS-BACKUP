@@ -1,99 +1,28 @@
-<style>
-  #age {
-    margin-bottom: 16px;
-    font-family: 'Outfit', sans-serif;
-  }
- 
-  #age .field-attribute {
-    margin: 20px 0 6px 2.5%;
-  }
- 
-  .age-field {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-left: 2.5%;
-    margin-top: 10px;
-    max-width: 70%;
-  }
- 
-  .age-field input[type="number"] {
-    flex: 1 1 30%;
-    min-width: 125px;
-    max-width: 250px;
-    padding: 6px 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
- 
-  @media (max-width: 1024px) {
-    .age-field {
-      max-width: 80%;
-    }
-    .age-field input[type="number"] {
-      flex: 1 1 45%;
-    }
-  }
- 
-  @media (max-width: 640px) {
-    .age-field {
-      max-width: 95%;
-    }
-    .age-field input[type="number"] {
-      flex: 1 1 100%;
-    }
-  }
-</style>
- 
-<article id="age">
-  <!-- Top Label -->
-  <div class="field-attribute">
-    <label for="ageYears">
-      {{ ::'REGISTRATION_LABEL_AGE' | translate }}
-      <span class="asterick" ng-hide="::dobMandatory">*</span>
-    </label>
-  </div>
- 
-  <!-- Input Row -->
-  <div class="field-value age-field">
-    <input
-      type="number"
-      id="ageYears"
-      name="ageYear"
-      max="120"
-      min="0"
-      placeholder="{{ ::'REGISTRATION_LABEL_YEARS' | translate }}"
-      ng-model="patient.age.years"
-      ng-required="::!dobMandatory"
-      title="{{ ::'REGISTRATION_LABEL_NUMERIC_YEARS' | translate }}"
-      ng-change="patient.calculateBirthDate()"
-      ng-disabled="isDisabledAttribute('age')"
-      ng-blur="handleUpdate('age')"
-    />
-    <input
-      type="number"
-      id="ageMonths"
-      name="ageMonths"
-      max="12"
-      min="0"
-      placeholder="{{ ::'REGISTRATION_LABEL_MONTHS' | translate }}"
-      ng-model="patient.age.months"
-      title="{{ ::'REGISTRATION_LABEL_NUMERIC_MONTHS' | translate }}"
-      ng-disabled="isDisabledAttribute('age')"
-      ng-change="patient.calculateBirthDate()"
-    />
-    <input
-      type="number"
-      id="ageDays"
-      name="ageDays"
-      max="31"
-      min="0"
-      placeholder="{{ ::'REGISTRATION_LABEL_DAYS' | translate }}"
-      ng-model="patient.age.days"
-      title="{{ ::'REGISTRATION_LABEL_NUMERIC_DAYS' | translate }}"
-      ng-disabled="isDisabledAttribute('age')"
-      ng-change="patient.calculateBirthDate()"
-    />
-  </div>
+<article class="form-field form-field-ipad" id="age">
+    <div class="field-attribute">
+        <label for="ageYears">{{ ::'REGISTRATION_LABEL_AGE' | translate}}<span class="asterick" ng-hide="::dobMandatory ">*</span></label>
+    </div>
+
+    <div class="field-value age-field">
+        <div class="input-prepend">
+            <span class="add-on">{{ ::'REGISTRATION_LABEL_YEARS' | translate}}</span>
+            <input type="number" id="ageYears" name="ageYear" max="120" ng-model="patient.age.years" min="0"
+                   ng-required="::!dobMandatory" title="{{ ::'REGISTRATION_LABEL_NUMERIC_YEARS' | translate}}"
+                   ng-change="patient.calculateBirthDate()" ng-disabled = "isDisabledAttribute('age')" ng-blur="handleUpdate('age')">
+        </div>
+        <div class="input-prepend">
+            <span class="add-on">{{ ::'REGISTRATION_LABEL_MONTHS' | translate}}</span>
+            <input type="number" id="ageMonths" name="ageMonths" max="12" ng-model="patient.age.months" min="0"
+                   title="{{ ::'REGISTRATION_LABEL_NUMERIC_MONTHS' | translate}}"
+                   ng-disabled = "isDisabledAttribute('age')" ng-change="patient.calculateBirthDate()">
+        </div>
+        <div class="input-prepend">
+            <span class="add-on">{{ ::'REGISTRATION_LABEL_DAYS' | translate}}</span>
+            <input type="number" id="ageDays" name="ageDays" max="31" ng-model="patient.age.days" min="0"
+                   title="{{ ::'REGISTRATION_LABEL_NUMERIC_DAYS' | translate}}"
+                   ng-disabled = "isDisabledAttribute('age')" ng-change="patient.calculateBirthDate()">
+        </div>
+
+    </div>
+
 </article>
