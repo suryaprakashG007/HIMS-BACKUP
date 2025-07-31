@@ -1,4 +1,4 @@
-
+version: '3.7'
 
 x-default-logging: &default
   {}
@@ -33,20 +33,8 @@ services:
     image: 'bahmni/clinic-config:${CONFIG_IMAGE_TAG:?}'
     volumes:
       - '${CONFIG_VOLUME:?}:/usr/local/bahmni_config'
-      - '../../clinic-config/openmrs/apps/admin/extension.json:/usr/local/bahmni_config/openmrs/apps/admin/extension.json'
-      - '../../clinic-config/openmrs/apps/clinical/dashboard.json:/usr/local/bahmni_config/openmrs/apps/clinical/dashboard.json'
-      - '../../clinic-config/openmrs/apps/home/extension.json:/usr/local/bahmni_config/openmrs/apps/home/extension.json'
-      - '../../clinic-config/openmrs/apps/home/whiteLabel.json:/usr/local/bahmni_config/openmrs/apps/home/whiteLabel.json'
-      - '../../clinic-config/openmrs/apps/registration/extension.json:/usr/local/bahmni_config/openmrs/apps/registration/extension.json'
-      - '../../openmrs-module-bahmniapps/ui/app/styles:/usr/local/bahmni_config/openmrs/styles'
-      - '../../openmrs-module-bahmniapps/ui/app/styles/appointments:/usr/local/bahmni_config/openmrs/styles/appointments'
-      - '../../clinic-config/openmrs/apps/registration/registrationCardLayout/print.html:/usr/local/bahmni_config/openmrs/apps/registration/registrationCardLayout/print.html'
-
     logging: *log-config
     restart: ${RESTART_POLICY}
-
-
-
 
   bahmni-lab:
     profiles: ["lab-lite","emr","bahmni-lite"]
@@ -89,7 +77,8 @@ services:
       OMRS_DB_EXTRA_ARGS: ${OMRS_DB_EXTRA_ARGS}
       LUCENE_MATCH_TYPE: ${LUCENE_MATCH_TYPE}
       DOCUMENT_MAX_SIZE_MB: ${DOCUMENT_MAX_SIZE_MB}
-    # ports:
+    ports:
+      - 8080:8080
       # - ${OMRS_DEV_DEBUG_PORT}:${OMRS_DEV_DEBUG_PORT}
     volumes:
       - "${CONFIG_VOLUME:?}:/etc/bahmni_config/:ro"
@@ -111,7 +100,6 @@ services:
     image: ${OPENMRS_DB_IMAGE_NAME:?}
     restart: always
     profiles: ["emr","bahmni-lite", "metabase", "bahmni-mart"]
-    platform: linux/amd64 
     command: --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
       TZ: ${TZ}
@@ -119,8 +107,6 @@ services:
       MYSQL_DATABASE: ${OPENMRS_DB_NAME:?}
       MYSQL_USER: ${OPENMRS_DB_USERNAME:?}
       MYSQL_PASSWORD: ${OPENMRS_DB_PASSWORD:?}
-    ports:
-      - "3307:3306" 
     volumes:
       - 'openmrsdbdata:/var/lib/mysql'
       - 'configuration_checksums:/configuration_checksums'
@@ -130,7 +116,6 @@ services:
   crater-php:
     image: bahmni/crater-php:${CRATER_PHP_IMAGE_TAG:?}
     profiles: ["crater","bahmni-lite"]
-    platform: linux/amd64 
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
@@ -158,7 +143,6 @@ services:
   crater-nginx:
     image: bahmni/crater-nginx:${CRATER_NGINX_IMAGE_TAG:?}
     profiles: ["crater","bahmni-lite"]
-    platform: linux/amd64 
     restart: unless-stopped
     environment:
       TZ: ${TZ}
@@ -170,7 +154,6 @@ services:
   craterdb:
     image: mysql:5.7
     profiles: ["crater","bahmni-lite"]
-    platform: linux/amd64 
     restart: always
     volumes:
       - craterdb:/var/lib/mysql
@@ -189,7 +172,6 @@ services:
     image: postgres:${METABASE_POSTGRES_IMAGE_TAG:?}
     restart: on-failure:[3]
     profiles: ["metabase", "bahmni-mart"]
-    platform: linux/amd64  # <--- add this line
     environment:
       TZ: ${TZ}
       POSTGRES_DB: ${METABASE_DB_NAME:?}
@@ -203,7 +185,6 @@ services:
     image: bahmni/bahmni-metabase:${METABASE_IMAGE_TAG:?}
     restart: on-failure:[3]
     profiles: ["metabase", "bahmni-mart"]
-    platform: linux/amd64   # <--- add this line
     environment:
       TZ: ${TZ}
       MB_ADMIN_EMAIL: ${METABASE_ADMIN_EMAIL:?}
@@ -229,7 +210,6 @@ services:
   martdb:
     image: postgres:${BAHMNI_MART_DB_IMAGE_TAG:?}
     profiles: ["bahmni-mart"]
-    platform: linux/amd64   # <--- add this line
     restart: ${RESTART_POLICY}
     environment:
       TZ: ${TZ}
@@ -345,8 +325,8 @@ services:
     image: bahmni/appointments:${APPOINTMENTS_IMAGE_TAG:?}
     profiles: ["emr","bahmni-lite"]
     restart: ${RESTART_POLICY}
-    volumes:
-      - "${APPOINTMENTS_PATH}/dist/:/usr/local/apache2/htdocs/appointments"
+    # volumes:
+    # - "${APPOINTMENTS_PATH:?}/dist/:/usr/local/apache2/htdocs/appointments"
 
   sms-service:
     image: bahmni/sms-service:${SMS_SERVICE_IMAGE_TAG:?}
@@ -377,7 +357,6 @@ services:
   crater-atomfeed:
     image: bahmni/crater-atomfeed:${CRATER_ATOMFEED_IMAGE_TAG:?}
     profiles: ["crater","bahmni-lite"]
-    platform: linux/amd64 
     restart: ${RESTART_POLICY}
     environment:
       TZ: ${TZ}
@@ -393,14 +372,6 @@ services:
       CRATER_ATOMFEED_DB_PASSWORD: ${CRATER_ATOMFEED_DB_PASSWORD}
       CRATER_ATOMFEED_DB_NAME: ${CRATER_ATOMFEED_DB_NAME}
       CRATER_URL: ${CRATER_URL}
-
-  phpmyadmin:
-       image: phpmyadmin
-       restart: always
-       ports:
-         - 82:80
-       environment:
-         - PMA_ARBITRARY=1
 
   crater-atomfeed-db:
     platform: linux/amd64
@@ -431,7 +402,6 @@ services:
   
   cdss:
     profiles: [ "cdss" ]
-    platform: linux/amd64 
     image: bahmni/cdss-reference:${CDSS_IMAGE_TAG:?}
     environment:
       JAVA_OPTS: ${CDSS_JAVA_SERVER_OPTS}
@@ -439,7 +409,6 @@ services:
 
   snowstorm-lite:
     profiles: [ "snowstorm-lite" ]
-    platform: linux/amd64 
     image: snomedinternational/snowstorm-lite:${SNOWSTORM_LITE_IMAGE_TAG:?}
     environment:
       JDK_JAVA_OPTIONS: ${SNOWSTORM_LITE_JAVA_SERVER_OPTS}
