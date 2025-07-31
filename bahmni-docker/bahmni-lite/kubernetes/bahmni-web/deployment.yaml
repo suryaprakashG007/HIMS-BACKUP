@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bahmni-web
+  labels:
+    app: bahmni-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bahmni-web
+  template:
+    metadata:
+      labels:
+        app: bahmni-web
+    spec:
+      initContainers:
+        - name: wait-for-config
+          image: busybox
+          command: ['sh', '-c', 'until [ -f /usr/local/apache2/htdocs/bahmni_config/openmrs/apps/home/app.json ]; do echo "Waiting for config..."; sleep 2; done']
+          volumeMounts:
+            - name: shared-config-volume
+              mountPath: /usr/local/apache2/htdocs/bahmni_config
+
+      containers:
+        - name: bahmni-web
+          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/bahmni-web:1.0.0
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-config-volume
+              mountPath: /usr/local/apache2/htdocs/bahmni_config
+
+      volumes:
+        - name: shared-config-volume
+          persistentVolumeClaim:
+            claimName: bahmni-config-pvc
+
+      imagePullSecrets:
+        - name: regcred

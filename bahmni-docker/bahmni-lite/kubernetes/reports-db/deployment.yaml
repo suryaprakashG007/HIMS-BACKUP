@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reports-db-mysql
+  labels:
+    app: reports-db-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reports-db-mysql
+  template:
+    metadata:
+      labels:
+        app: reports-db-mysql
+    spec:
+      containers:
+        - name: reports-db-mysql
+          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/reports-db-mysql:8.0  # ECR image
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: reports-db-secret
+                  key: root-password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: reports-db-secret
+                  key: db-name
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: reports-db-secret
+                  key: db-user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: reports-db-secret
+                  key: db-password
+      imagePullSecrets:
+        - name: regcred

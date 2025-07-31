@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bahmni-lab
+  labels:
+    app: bahmni-lab
+spec:
+  selector:
+    app: bahmni-lab
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
