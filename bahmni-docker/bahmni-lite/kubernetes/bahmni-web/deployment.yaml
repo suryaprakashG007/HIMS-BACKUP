@@ -23,8 +23,8 @@ spec:
               mountPath: /usr/local/apache2/htdocs/bahmni_config
 
       containers:
-        - name: bahmni-web
-          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/bahmni-web:1.0.0
+        - name: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/bahmni-web:10.0.0
+          image: 
           ports:
             - containerPort: 80
           volumeMounts:
