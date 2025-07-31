@@ -1,7 +1,7 @@
 {
   "homePage": {
-    "header_text": "WELCOME TO MG CLINICS",
-    "logo": "/bahmni/images/MGlogo.png",
+    "header_text": "<b>WELCOME TO<br />BAHMNI EMR FOR CLINICS",
+    "logo": "/bahmni/images/bahmniLogoFull.png",
     "title_text": " "
   },
   "loginPage": {
@@ -9,20 +9,17 @@
     "showHeaderText": true,
     "showTitleText": false
   },
-  
   "helpLink": {
     "url": "https://bahmni.atlassian.net/wiki/display/BAH/Bahmni+Home"
   },
-  
   "landingPage": [
     {
       "enabled": true,
       "name": "clinicalService",
       "title": "Clinical Service",
-      "logo": "/bahmni/images/Frontclinical.png",
+      "logo": "/bahmni/images/app.png",
       "link": "/bahmni/home"
     },
-    
     {
       "enabled": false,
       "name": "openelis",
@@ -41,7 +38,7 @@
       "enabled": true,
       "name": "crater",
       "title": "Payment & Billing",
-      "logo": "/bahmni/images/Frontpayment.png",
+      "logo": "/bahmni/images/bills.png",
       "linkPrefix": "payments"
     },
     {
@@ -59,10 +56,10 @@
       "link": "/dcm4chee-web3"
     },
     {
-      "enabled": false,
+      "enabled": true,
       "name": "metabase",
       "title": "Analytics",
-      "logo": "/bahmni/images/Frontanalytics.png",
+      "logo": "/bahmni/images/analytics.png",
       "link": "/metabase"
     }
   ]

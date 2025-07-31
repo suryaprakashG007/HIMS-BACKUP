@@ -6,8 +6,8 @@
         "translationKey":"REGISTRATION_SEARCH_CONFIG_KEY",
         "url": "/search",
         "shortcutKey": "REGISTRATION_SEARCH_CONFIG_ACCESS_KEY",
-        "iconImage": "/bahmni/images/Searchicon.png",
-        "order": 2,
+        "icon": "fa-search",
+        "order": 1,
         "requiredPrivilege": "View Patients"
     },
     "createNew":{
@@ -16,9 +16,9 @@
         "type": "link",
         "translationKey": "REGISTRATION_CREATE_NEW_CONFIG_KEY",
         "url": "/patient/new",
-        "iconImage": "/bahmni/images/Addicon.png",
+        "icon": "fa-plus",
         "shortcutKey": "REGISTRATION_CREATE_NEW_CONFIG_ACCESS_KEY",
-        "order": 1,
+        "order": 2,
         "requiredPrivilege": "Add Patients"
     },
     "view":{

@@ -1,5 +1,4 @@
 {
-
     "auditLog":{
         "id": "bahmni.admin.auditLog",
         "extensionPointId": "org.bahmni.admin.dashboard",
@@ -8,7 +7,7 @@
         },
         "label": "Audit Log",
         "url": "#/auditLog",
-        "iconImage": "/bahmni/images/auditLogIcon.png",
+        "icon": "fa-eye",
         "order": 1,
         "requiredPrivilege": "app:admin"
     },
@@ -20,8 +19,9 @@
         },
         "label": "Order Set",
         "url": "#/ordersetdashboard",
-        "iconImage": "/bahmni/images/orderSetIcon.png",
+        "icon": "fa-upload",
         "order": 1,
         "requiredPrivilege": "app:admin"
     }
+    
 }

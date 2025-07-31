@@ -196,11 +196,6 @@
                     "numberOfVisits":2
                 }
             },
-            "programs":{  
-                "translationKey":"DASHBOARD_TITLE_PROGRAMS_KEY",
-                "type":"programs",
-                "displayOrder":10
-            },
 
             "forms-2.0": {
                 "type": "formsV2",
