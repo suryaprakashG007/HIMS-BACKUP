@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: clinic-config
-          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/clinic-config:13.0.0
+          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/clinic-config:1.0.0
           volumeMounts:
             - name: shared-config-volume
               mountPath: /shared/bahmni_config
