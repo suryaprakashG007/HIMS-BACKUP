@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: crater-atomfeed-db-mysql
-          image: 5.7
+          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/mysql:5.7
           ports:
             - containerPort: 3306
           env:
