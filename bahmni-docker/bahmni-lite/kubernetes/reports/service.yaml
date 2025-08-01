@@ -7,6 +7,6 @@ spec:
     app: reports
   ports:
     - protocol: TCP
-      port: 8050
+      port: 8051
       targetPort: 8051
   type: LoadBalancer
