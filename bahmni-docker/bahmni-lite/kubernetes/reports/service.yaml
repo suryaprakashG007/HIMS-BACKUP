@@ -7,6 +7,6 @@ spec:
     app: reports
   ports:
     - protocol: TCP
-      port: 8051
+      port: 8050
       targetPort: 8051
-  type: ClusterIP
+  type: LoadBalancer
