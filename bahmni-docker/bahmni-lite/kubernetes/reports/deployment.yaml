@@ -43,7 +43,7 @@ spec:
             - name: TZ
               value: Asia/Kolkata
             - name: OPENMRS_DB_HOST
-              value: openmrsdb
+              value: openmrs-db
             - name: OPENMRS_DB_NAME
               value: openmrs
             - name: OPENMRS_DB_USERNAME
