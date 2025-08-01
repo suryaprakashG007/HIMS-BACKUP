@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openmrs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openmrs
+  template:
+    metadata:
+      labels:
+        app: openmrs
+    spec:
+      restartPolicy: Always
+      initContainers:
+        - name: wait-for-db
+          image: busybox:1.35
+          command: ['sh', '-c']
+          args:
+            - |
+              echo "Waiting for DB on openmrs-db:3306...";
+              until nc -z openmrs-db 3306; do
+                echo "Still waiting for DB...";
+                sleep 3;
+              done;
+              echo "DB is ready!";
+      containers:
+        - name: openmrs
+          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/openmrs:1.0.1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: OMRS_DB_NAME
+              value: "openmrs"
+            - name: OMRS_DB_HOSTNAME
+              value: "openmrs-db"
+            - name: OMRS_DB_USERNAME
+              value: "openmrs-user"
+            - name: OMRS_DB_PASSWORD
+              value: "password"
+            - name: OMRS_DB_PORT
+              value: "3306"
+            - name: OMRS_CREATE_TABLES
+              value: "true"
+            - name: OMRS_AUTO_UPDATE_DATABASE
+              value: "true"
+            - name: OMRS_C3P0_MAX_SIZE
+              value: "100"
+            - name: TZ
+              value: "UTC"
+ 
+          startupProbe:
+            httpGet:
+              path: /openmrs
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 30
+            timeoutSeconds: 30
+            failureThreshold: 40
+ 
+          readinessProbe:
+            httpGet:
+              path: /openmrs
+              port: 8080
+            initialDelaySeconds: 300
+            periodSeconds: 30
+            timeoutSeconds: 30
+            failureThreshold: 10
+ 
+          livenessProbe:
+            httpGet:
+              path: /openmrs
+              port: 8080
+            initialDelaySeconds: 600
+            periodSeconds: 60
+            timeoutSeconds: 30
+            failureThreshold: 5

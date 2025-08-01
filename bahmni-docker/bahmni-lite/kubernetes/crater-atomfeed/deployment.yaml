@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crater-atomfeed
+  labels:
+    app: crater-atomfeed
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: crater-atomfeed
+  template:
+    metadata:
+      labels:
+        app: crater-atomfeed
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+
+      initContainers:
+        - name: wait-for-dependencies
+          image: busybox:1.35
+          command: ['sh', '-c']
+          args:
+            - |
+              echo "Waiting for crater-atomfeed-db:3306...";
+              until nc -z crater-atomfeed-db 3306; do
+                echo "Still waiting for DB...";
+                sleep 3;
+              done;
+              echo "DB is up!";
+
+              echo "Waiting for OpenMRS at openmrs:8080...";
+              until nc -z openmrs 8080; do
+                echo "Still waiting for OpenMRS...";
+                sleep 3;
+              done;
+              echo "OpenMRS is up!";
+
+      containers:
+        - name: crater-atomfeed
+          image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/crater-atomfeed:1.0.0
+          command: ["java"]
+          args: ["-jar", "/crater-atomfeed.jar"]
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://crater-atomfeed-db:3306/crater_atomfeed?useSSL=false&allowPublicKeyRetrieval=true"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "crater_atomfeed_user"
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: crater-atomfeed-secret
+                  key: user-password
+
+            - name: OPENMRS_URL
+              value: "http://openmrs:8080/openmrs"
+            - name: OPENMRS_ATOMFEED_USER
+              value: "admin"
+            - name: OPENMRS_ATOMFEED_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: crater-atomfeed-secret
+                  key: openmrs_atomfeed_password
+
+            - name: CRATER_URL
+              value: "http://crater-nginx"
+            - name: CRATER_USERNAME
+              value: "superman@bahmni.org"
+            - name: CRATER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: crater-atomfeed-secret
+                  key: crater_password
+
+            - name: MAIL_SMTP_HOST
+              value: "email-smtp.ap-south-1.amazonaws.com"
+            - name: MAIL_SMTP_PORT
+              value: "587"
+            - name: MAIL_USER
+              value: "AKIA3LET5U6POO5XGQ5S"
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: crater-atomfeed-secret
+                  key: mail_password
+
+            - name: SERVER_PORT
+              value: "8080"  # <- match container port!
+            - name: TZ
+              value: "UTC"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 20
+            timeoutSeconds: 10
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+

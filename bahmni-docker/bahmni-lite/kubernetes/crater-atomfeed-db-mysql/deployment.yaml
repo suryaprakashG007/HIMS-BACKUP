@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crater-atomfeed-db-mysql
+  labels:
+    app: crater-atomfeed-db-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crater-atomfeed-db-mysql
+  template:
+    metadata:
+      labels:
+        app: crater-atomfeed-db-mysql
+    spec:
+      containers:
+        - name: crater-atomfeed-db-mysql
+          image: 5.7
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: crater-atomfeed-secret
+                  key: root-password
+            - name: MYSQL_DATABASE
+              value: crater_atomfeed
+            - name: MYSQL_USER
+              value: crater_atomfeed_user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: crater-atomfeed-secret
+                  key: user-password
+      imagePullSecrets:
+        - name: regcred
