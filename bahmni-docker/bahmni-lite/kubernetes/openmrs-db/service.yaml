@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: openmrs-db
+  name: openmrsdb
   labels:
-    app: openmrs-db
+    app: openmrsdb
 spec:
   selector:
-    app: openmrs-db
+    app: openmrsdb
   ports:
     - protocol: TCP
       port: 3306
