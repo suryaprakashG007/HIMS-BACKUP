@@ -46,7 +46,7 @@ services:
 
   openmrs:
     profiles: ["emr","bahmni-lite", "bahmni-mart"]
-    image: b779846789022.dkr.ecr.ap-south-1.amazonaws.com/openmrs:1.0.1
+    image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/openmrs:1.0.1
     environment:
       TZ: ${TZ}
       OMRS_DB_NAME: ${OPENMRS_DB_NAME:?}
