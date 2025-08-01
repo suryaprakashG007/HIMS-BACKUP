@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openmrs-db
+  name: openmrsdb
   labels:
-    app: openmrs-db
+    app: openmrsdb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openmrs-db
+      app: openmrsdb
   template:
     metadata:
       labels:
-        app: openmrs-db
+        app: openmrsdb
     spec:
       containers:
-        - name: openmrs-db
+        - name: openmrsdb
           image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/openmrs-db:1.0.0-lite-mysql5.6
           ports:
             - containerPort: 3306
