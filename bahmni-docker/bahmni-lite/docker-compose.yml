@@ -46,7 +46,7 @@ services:
 
   openmrs:
     profiles: ["emr","bahmni-lite", "bahmni-mart"]
-    image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/openmrs:1.0.1
+    image: bahmni/openmrs:${OPENMRS_IMAGE_TAG:?}
     environment:
       TZ: ${TZ}
       OMRS_DB_NAME: ${OPENMRS_DB_NAME:?}
@@ -96,7 +96,7 @@ services:
     restart: ${RESTART_POLICY}
 
   openmrsdb:
-    image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/openmrs:1.0.0-lite-mysql5.6
+    image: ${OPENMRS_DB_IMAGE_NAME:?}
     restart: always
     profiles: ["emr","bahmni-lite", "metabase", "bahmni-mart"]
     command: --character-set-server=utf8 --collation-server=utf8_general_ci
