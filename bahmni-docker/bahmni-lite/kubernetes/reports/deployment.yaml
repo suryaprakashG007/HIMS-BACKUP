@@ -22,64 +22,6 @@
 #       imagePullSecrets:
 #         - name: ecr-secret
 
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: reports
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: reports
-#   template:
-#     metadata:
-#       labels:
-#         app: reports
-#     spec:
-#       containers:
-#         - name: reports
-#           image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/reports:1.0.0
-#           env:
-#             - name: TZ
-#               value: Asia/Kolkata
-#             - name: OPENMRS_DB_HOST
-#               value: openmrsdb
-#             - name: OPENMRS_DB_NAME
-#               value: openmrs
-#             - name: OPENMRS_DB_USERNAME
-#               value: openmrs-user
-#             - name: OPENMRS_DB_PASSWORD
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: reports-db-secret
-#                   key: MYSQL_PASSWORD
-#             - name: OPENMRS_HOST
-#               value: openmrs
-#             - name: OPENMRS_PORT
-#               value: "8080"
-#             - name: REPORTS_DB_SERVER
-#               value: reports-db
-#             - name: REPORTS_DB_NAME
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: reports-db-secret
-#                   key: MYSQL_DATABASE
-#             - name: REPORTS_DB_USERNAME
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: reports-db-secret
-#                   key: MYSQL_USER
-#             - name: REPORTS_DB_PASSWORD
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: reports-db-secret
-#                   key: MYSQL_PASSWORD
-#             - name: ICD10_LITE_INDICATOR
-#               value: "true"
-#           ports:
-#             - containerPort: 8051
-          
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -136,12 +78,70 @@ spec:
               value: "true"
           ports:
             - containerPort: 8051
-          volumeMounts:
-            - name: reports-config
-              mountPath: /opt/bahmni-reports/config
-      volumes:
-        - name: reports-config
-          configMap:
-            name: bahmni-reports-config
-      imagePullSecrets:
-        - name: regcred
+          
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: reports
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: reports
+#   template:
+#     metadata:
+#       labels:
+#         app: reports
+#     spec:
+#       containers:
+#         - name: reports
+#           image: 779846789022.dkr.ecr.ap-south-1.amazonaws.com/reports:1.0.0
+#           env:
+#             - name: TZ
+#               value: Asia/Kolkata
+#             - name: OPENMRS_DB_HOST
+#               value: openmrsdb
+#             - name: OPENMRS_DB_NAME
+#               value: openmrs
+#             - name: OPENMRS_DB_USERNAME
+#               value: openmrs-user
+#             - name: OPENMRS_DB_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: reports-db-secret
+#                   key: MYSQL_PASSWORD
+#             - name: OPENMRS_HOST
+#               value: openmrs
+#             - name: OPENMRS_PORT
+#               value: "8080"
+#             - name: REPORTS_DB_SERVER
+#               value: reports-db
+#             - name: REPORTS_DB_NAME
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: reports-db-secret
+#                   key: MYSQL_DATABASE
+#             - name: REPORTS_DB_USERNAME
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: reports-db-secret
+#                   key: MYSQL_USER
+#             - name: REPORTS_DB_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: reports-db-secret
+#                   key: MYSQL_PASSWORD
+#             - name: ICD10_LITE_INDICATOR
+#               value: "true"
+#           ports:
+#             - containerPort: 8051
+#           volumeMounts:
+#             - name: reports-config
+#               mountPath: /opt/bahmni-reports/config
+#       volumes:
+#         - name: reports-config
+#           configMap:
+#             name: bahmni-reports-config
+#       imagePullSecrets:
+#         - name: regcred
